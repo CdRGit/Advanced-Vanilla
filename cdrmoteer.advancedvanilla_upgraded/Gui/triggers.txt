@@ -1,0 +1,38 @@
+AddTriggers
+{
+	Action = AddMany
+	AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
+	ManyToAdd = 
+	[
+		{
+			TriggerID = "destroy_self_destruct_cores"
+			ButtonToolTipKey = "PartTriggers/SelfDestruct"
+			ShowWithShipCommands = true
+			DefaultHotkey = [PlatformCmdCtrl, T]
+			ButtonSprite
+			{
+				Texture
+				{
+					File = "trigger_self_destruct.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+			}
+		}
+		{
+			TriggerID = "detach_detach_cores"
+			ButtonToolTipKey = "PartTriggers/Detach"
+			ShowWithShipCommands = true
+			DefaultHotkey = [PlatformCmdCtrl, R]
+			ButtonSprite
+			{
+				Texture
+				{
+					File = "trigger_detach.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+			}
+		}
+	]
+}

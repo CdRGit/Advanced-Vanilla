@@ -29,6 +29,8 @@ Actions
 	&<bounty.txt>/AddShips
 	&<bounty.txt>/AddShipCategory
 	&<Keainae/add.txt>/Add
+	
+	&<Gui/triggers.txt>/AddTriggers
 
 	{
 		Action = Add
@@ -434,46 +436,6 @@ Actions
 		RectBorderColor = [255, 0, 0, 160]
 		RectFillColor = [255, 0, 0, 64]
 	}
-	}
-	{
-		Action = Add
-		AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
-		ToAdd
-		{
-			TriggerID = "destroy_self_destruct_cores"
-			ButtonToolTipKey = "PartTriggers/SelfDestruct"
-			ShowWithShipCommands = true
-			DefaultHotkey = [PlatformCmdCtrl, T]
-			ButtonSprite
-			{
-				Texture
-				{
-					File = "gui/trigger_self_destruct.png"
-					MipLevels = 2
-					SampleMode = Linear
-				}
-			}
-		}
-	}
-	{
-		Action = Add
-		AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
-		ToAdd
-		{
-			TriggerID = "detach_detach_cores"
-			ButtonToolTipKey = "PartTriggers/Detach"
-			ShowWithShipCommands = true
-			DefaultHotkey = [PlatformCmdCtrl, R]
-			ButtonSprite
-			{
-				Texture
-				{
-					File = "gui/trigger_detach.png"
-					MipLevels = 2
-					SampleMode = Linear
-				}
-			}
-		}
 	}
 	
 	{
