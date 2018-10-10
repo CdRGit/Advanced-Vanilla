@@ -1,0 +1,440 @@
+Part : /BASE_PART
+{
+	NameKey = "Keainae/Parts/ThrusterJumpSmall"
+	IconNameKey = "Keainae/Parts/ThrusterJumpSmallIcon"
+	IDString = cdrmoteer.keainae.thruster_jump_small
+	EditorGroup = "Flight"
+	DescriptionKey = "Keainae/Parts/ThrusterJumpSmallDesc"
+	Cost = 500
+	TypeCategories = [thruster, uses_power, ftl]
+	RequiresCategories = [keainae_tier_1_controller]
+	Size = [1, 2]
+	PhysicalRect = [0, 0, 1, 1]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	SelectionTypeByRotation = true
+	SelectionTypeID = "thrusters"
+	MaxHealth = 1000
+	ProhibitBelow = 6
+	ThrusterForce = 2000
+	ThrustIncreaseTime = 2
+	ThrustRecoveryTime = 10
+	FuelUsage = 0
+	ReceivableBuffs = [Keainae_Tier_1_Control]
+	AllowedDoorLocations
+	[
+		[0, -1]
+		[1, 0]
+		[-1, 0]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [21.33, 42.66]
+	}
+	Components : ^/0/Components
+	{
+		IsControlled
+		{
+			Type = BuffToggle
+			BuffType = Keainae_Tier_1_Control
+			MinBuffValue = 1
+		}
+		
+		BuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = Keainae_Tier_1_Problem
+			BuffAmount = 1
+			GridDistance = 20
+		}
+		
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, IsControlled]
+			Mode = All
+		}
+		
+		IsBeingCharged
+		{
+			Type = MultiToggle
+			Toggles = [IsOperational, PartCrew, FtlDrive]
+			Mode = All
+		}
+
+		FtlDrive
+		{
+			Type = FtlDrive
+			OperationalToggle = PowerToggle
+			AmmoStorage = BatteryStorage
+			SpinDownDuration = 10
+			JumpEfficiencyDistanceRange = [3, 5]
+		}
+
+		FtlSpin
+		{
+			Type = ContinuousEffects
+			Location = [1, 1]
+			FactorMediaEffectsSpeedWith = FtlDrive
+			OperationalToggle = PowerToggle
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "ftl_spin.wav"
+					Volume = 1
+					Speed = 2.5
+					MaxConcurrent = 0
+				}
+			]
+		}
+		
+		CrewLocation
+		{
+			Type = CrewLocation
+			Location = [0.5, 0.35]
+			Rotation = 180d
+		}
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 1
+			Priorities = &/PRIORITIES/ControlRoom_Crew
+			PrerequisitesBeforeCrewing = [IsOperational, FtlDrive]
+			AbandonWhenOnFire = false
+			CrewDestinations
+			[
+				[0.5, 0.35]
+			]
+			CrewLocations
+			[
+				CrewLocation
+			]
+		}
+		
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			MaxAmmo = 100
+			Priorities = { Low=&../LowConsumeJobPriority; High=&../HighConsumeJobPriority; Empty=&../EmptyConsumeJobPriority }
+			LowConsumeJobPriority = 0
+			HighConsumeJobPriority = 0
+			EmptyConsumeJobPriority = 0
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			ResupplyThreshold = 500
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+		BatteryProducer
+		{
+			Type = AmmoConverter
+			ToStorage = BatteryStorage
+			ToQuantity = 1
+			Interval = 0.1
+			OperationalToggle = IsBeingCharged
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			OperationalToggle = IsOperational
+			AnimationSpeedFactor = FtlDrive
+			Floor
+			{
+				Layer = "floors"
+				Offset = [0, .5]
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, .5]
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+						]
+						Size = [1, 2]
+						AnimationInterval = 0.005
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, .5]
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				Offset = [0, .5]
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				Offset = [0, .5]
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 2]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows_on.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_windows_on_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_windows_on_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows_off.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_windows_off_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_windows_off_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+
+		MainThruster
+		{
+			Type = Thruster
+			Location = [0.5, 1.5]// Relative to upper-left corner of unrotated part.
+			Rotation = 90d// Relative to unrotated part.
+			OperationalToggle = FtlDrive
+			Force = &../../ThrusterForce
+			MinActivation = 1
+			MaxActivation = 1
+			MinUncommandedActivation = 1
+			MaxUncommandedActivation = 1
+			ActivationIncreaseTime = &../../ThrustIncreaseTime
+			ActivationRecoveryTime = &../../ThrustRecoveryTime
+			FuelStorage = BatteryStorage
+			FuelUsagePerSecond = &../../FuelUsage
+		}
+
+		ThrustEffects
+		{
+			Type = ContinuousEffects
+			ChainedTo = MainThruster
+			FactorMediaEffectsIntensityWith = MainThruster
+			MediaEffects
+			[
+				&<particles/thruster_trail_small.txt>
+				&<particles/thruster_glow_small.txt>
+
+				: /COMMON_SOUNDS/ThrusterRumble
+				{
+					Volume = .075
+					Speed = 2
+					MaxConcurrentVolume = .15
+				}
+			]
+		}
+
+		BurstTrigger
+		{
+			Type = ThresholdTrigger
+			AmountFrom = MainThruster
+			MinAmount = .5
+		}
+
+		BurstEffects
+		{
+			Type = TriggeredEffects
+			ChainedTo = MainThruster
+			Trigger = BurstTrigger
+			FactorMediaEffectsIntensityWith = MainThruster
+			AnchorMediaEffects = true
+			MediaEffects
+			[
+				: /COMMON_SOUNDS/ThrusterBurst
+				{
+					Volume = .125
+					Speed = 2
+					MaxConcurrentVolume = .25
+				}
+			]
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [.5, .5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyed
+			Location = [.5, .5]
+		}
+
+		ThrusterHum
+		{
+			Type = ContinuousEffects
+			Location = [.5, .5]
+			OperationalToggle = IsOperational
+			MediaEffects
+			[
+				: /COMMON_SOUNDS/ThrusterHum
+				{
+					Volume = .05
+					Speed = 1.5
+					MaxConcurrentVolume = 1
+				}
+			]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [0.5, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = IsControlled
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 2]
+		}
+
+		CrewUIStats
+		{
+			Type = UIStats
+			Stat = Crew
+			Min = 1
+			Ideal = 1
+		}
+	}
+}
