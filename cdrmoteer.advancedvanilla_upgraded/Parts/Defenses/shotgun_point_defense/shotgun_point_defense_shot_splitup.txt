@@ -1,0 +1,72 @@
+ID = cdrmoteer.shotgun_point_defense_shot_splitup
+ReceivableBuffs = [Advanced_Vanilla_Defense]
+Range = 179
+Speed = 80
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.4
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Lower
+		Sprite
+		{
+			Texture
+			{
+				File = "point_defense_shot.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [8, .5]
+		}
+	}
+
+	AntiBullet
+	{
+		Type = AntiBullet
+		PhysicsComponent = Physics
+
+		HitBullet
+		{
+			HitEffects
+							[
+								{
+									Type = BulletDamage
+									Damage = { BaseValue=1000; BuffType=Advanced_Vanilla_Defense; BuffMode=Multiply; }
+								}
+							]
+			
+			MediaEffects
+							[
+								&<./Data/shots/pd_shot/particles/pd_shot_clink.txt>
+							]
+		}
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+		PhysicsComponent = Physics
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects = []
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitStructural = &HitOperational
+	}
+}

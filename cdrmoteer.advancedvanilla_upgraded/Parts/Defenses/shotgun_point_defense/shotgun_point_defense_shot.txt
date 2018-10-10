@@ -1,0 +1,93 @@
+ID = cdrmoteer.shotgun_point_defense_shot
+ReceivableBuffs = [Advanced_Vanilla_Defense]
+Range = 1
+Speed = 80
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.4
+		Density = 0.1
+	}
+
+	Death
+    {
+        Type = DeathByLifetime
+        PhysicsComponent = Physics
+
+        OnDeath
+        {
+            HitEffects
+            [
+                {
+                    Type = SpawnBullets
+                    Bullet = &<shotgun_point_defense_shot_splitup.txt>
+                    Count = [5, 15]
+                    Distance = [0, 2]
+                    Arc = [-15d, 30d]
+                    Spread = [-10d, 10d]
+                    InheritVelocity = false
+                }
+            ]
+        }
+    }
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Lower
+		Sprite
+		{
+			Texture
+			{
+				File = "point_defense_shot.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [8, .5]
+		}
+	}
+
+	AntiBullet
+	{
+		Type = AntiBullet
+		PhysicsComponent = Physics
+
+		HitBullet
+		{
+			HitEffects
+							[
+								 {
+                    Type = SpawnBullets
+                    Bullet = &<shotgun_point_defense_shot_splitup.txt>
+                    Count = [3, 10]
+                    Distance = [0, 2]
+                    Arc = [-120d, 120d]
+                    Spread = [-10d, 10d]
+                    InheritVelocity = false
+                }
+							]
+			
+			MediaEffects
+							[
+								&<./Data/shots/pd_shot/particles/pd_shot_clink.txt>
+							]
+		}
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+		PhysicsComponent = Physics
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects = []
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitStructural = &HitOperational
+	}
+}

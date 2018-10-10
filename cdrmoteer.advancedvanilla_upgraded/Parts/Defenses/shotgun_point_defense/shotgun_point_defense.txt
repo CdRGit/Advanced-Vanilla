@@ -1,0 +1,408 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/ShotgunPointDefense"
+	IconNameKey = "Parts/ShotgunPointDefenseIcon"
+	IDString = cdrmoteer.shotgun_point_defense
+	EditorGroup = "advanced_vanilla_group_defenses"
+	DescriptionKey = "Parts/ShotgunPointDefenseDesc"
+	Cost = 1000
+	AIValue = 1
+	TypeCategories = [defense, point_defense,advanced_parts]
+	RequiresCategories = [advanced_defense_main]
+	Size = [1, 2]
+	PhysicalRect = [0, 1, 1, 1]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	SelectionTypeByRotation = true
+	MaxHealth = 2000
+	InitialPenetrationResistance = 2
+	ProhibitAbove = 1
+	ReceivableBuffs = [Advanced_Vanilla_Defense]
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[1, 1]
+		[0, 2]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [21.33, 42.66]
+	}
+	Components
+	{
+		
+		
+		BlueprintSprite0
+		{
+			File = "blueprints.png"
+			Size = [1, 2]
+		Type=BlueprintSprite;}
+		PowerUIStats
+		{
+			Min = .333
+			Ideal = .666
+			Type = UIStats
+			Stat = Power
+		}
+		CrewUIStats
+		{
+			Min = 0
+			Ideal = 1
+			Type = UIStats
+			Stat = Crew
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				PowerToggle
+				BatteryStorage
+			]
+			Mode = All
+		}
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+			ToggledOnChoices = [1]
+		}
+
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			MaxAmmo = 1000
+			Priorities = { Low=&../LowConsumeJobPriority; High=&../HighConsumeJobPriority; Empty=&../EmptyConsumeJobPriority }
+			LowConsumeJobPriority = &/PRIORITIES/Defense_Supply/Low
+			HighConsumeJobPriority = &/PRIORITIES/Defense_Supply/High
+			EmptyConsumeJobPriority = &/PRIORITIES/Defense_Supply/Empty
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			Location = [.5, 1.5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_on.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_on_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_on_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_off_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_off_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_window.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		Turret
+		{
+			Type = TurretWeapon
+			OperationalToggle = IsOperational,
+			Location = [.5, 0.89]// Relative to upper-left corner of unrotated part.
+			Rotation = -90d// Relative to unrotated part.
+			FireInterval = { BaseValue=.8; BuffType=Advanced_Vanilla_Defense; BuffMode=Divide; }
+			FiringArc = 135d
+			TargetingRange = 180
+			RotateSpeed = 360d
+			FireThresholdAngle = 1d
+			TargetSearchTriesPerFrame = 1
+			AIFirepowerRating = 0
+			TargetTypesByPriority = [Bullets]
+			CanBeGivenExplicitTarget = false
+			IsDefensiveOnly = true
+
+			OldEmitter
+			{
+				Type = Bullet
+				Bullet = &<shotgun_point_defense_shot.txt>
+				Spread = [0d, 0d]
+			}
+		Emitter = TurretEmitter
+		}
+
+		TurretEmitter: Turret/OldEmitter
+		{
+			Type = BulletEmitter
+			Location
+			[
+				0.6875
+				0
+			]
+			ChainedTo = Turret
+			FireTrigger = Turret
+			GetTargetFrom = Turret
+			OperationalToggle = IsOperational
+			FireDelay = 0
+			AmmoStorage = BatteryStorage
+			AmmoUsed
+			{
+				BaseValue = 400
+				BuffType = Advanced_Vanilla_Defense
+				BuffMode = Divide
+			}
+		}
+
+		FireEffect
+		{
+			Type = TriggeredEffects
+			ChainedTo = Turret
+			Trigger = TurretEmitter
+			Location = [0.6875, 0]
+			AnchorMediaEffects = true
+
+			MediaEffects
+			[
+				&<./Data/ships/terran/point_defense/particles/point_defense_shoot.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "point_defense_shoot.wav"
+					Volume = .25
+					SpeedVariation = .25
+				}
+			]
+		}
+
+		TurretGraphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			ChainedTo = Turret
+			Location = [-0.109375, 0]
+			Rotation = 90d
+			OperationalDoodad
+			{
+				Layer = "turrets"
+				DamageLevels
+				[
+					{
+						File = "turret_on.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_on_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_on_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "turrets"
+				DamageLevels
+				[
+					{
+						File = "turret_off.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_off_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_off_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+		}
+
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [.5, 1.5]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_low"
+			HasZeroAmmoSprite = true
+			AmmoLevels
+			[
+				{
+					File = "battery0.png"
+					Size = [1, 1]
+				}
+				{
+					File = "battery1.png"
+					Size = [1, 1]
+				}
+			]
+		}
+		
+		
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Toggle = IsOperational,
+			Location = [.5, 1.5]
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyed
+			Location = [.5, 1.5]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [.5, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+	}
+}
