@@ -1,0 +1,104 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/Carpet"
+	IconNameKey = "Parts/CarpetIcon"
+	IDString = cdrmoteer.carpet // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
+	DescriptionKey = "Parts/CarpetDesc"
+EditorGroup = "advanced_vanilla_group_misc"
+	Cost = 100
+	Size = [1, 1]
+	MaxHealth = 1000
+	InitialPenetrationResistance = .5
+	CreatePartPerTileWhenGrabbed = ""
+	CrewSpeedFactor = 1
+	TypeCategories = [corridor]
+	IsRotateable = false
+	IsWalled = false
+	GeneratorRequiresDoor = false
+	CreatePassableHolesWhenDestroyed = true
+	IgnoreRotationForMirroredSelection = true
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components
+	{
+		WallsBlend : <../Walls/walls.txt>
+		{
+			Type = BlendSprite
+			Location = [.5, .5]
+			BlendsWithCategories = [corridor]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				RandomUVRotation = true
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				RandomUVRotation = true
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+
+		BlueprintWalls : <../Walls/blueprint walls.txt>
+		{
+			Location = [.5, .5]
+			BlendsWithCategories = [corridor]
+		}
+	}
+}

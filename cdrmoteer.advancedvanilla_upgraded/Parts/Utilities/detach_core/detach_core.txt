@@ -1,0 +1,234 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/DetachCore"
+	IconNameKey = "Parts/DetachCoreIcon"
+	IDString = cdrmoteer.detach_core // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
+	EditorGroup = "advanced_vanilla_group_misc"
+	DescriptionKey = "Parts/DetachCoreDesc"
+	CreatePartPerTileWhenDestroyed = ""
+	Cost = 4000
+	TypeCategories = [explosives]
+	Size = [1, 1]
+	SelectionPriority = 1
+	MaxHealth = 1000
+	CrewSpeedFactor = 0
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		DetonateTrigger
+		{
+			Type = UITrigger
+			TriggerID = "detach_detach_cores"
+		}
+
+		DetonateEffects
+		{
+			// This just destroys the part, which in turn will trigger the DeathEffects, causing the actual collateral damage.
+
+			Type = TriggeredEffects
+			Trigger = DetonateTrigger
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 999999
+					AllowFriendlyDamage = true
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			Location = [.5, .5]
+
+			MediaEffects
+			[
+				&<./Data/common_effects/particles/explosions/med_part_explode.txt>
+				&<./Data/common_effects/particles/explosions/big_part_explode_flash.txt>
+				&<particles/explosive_charge_shockwave.txt>
+				&<./Data/common_effects/particles/explosions/med_part_explode_smoke.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "./Data/common_effects/sounds/big_part_destroyed.wav"
+					Volume = 1
+					SpeedVariation = .25
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .15
+					Duration = 1
+				}
+			]
+
+			HitEffects
+			[
+				{
+					Type = AreaImpulse
+					ImpulsePerTile = 10
+					ImpulseRadius = 50
+					Delay = .05
+				}
+			]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"bomb1.png"
+							"bomb2.png"
+							"bomb3.png"
+							"bomb4.png"
+							"bomb5.png"
+							"bomb4.png"
+							"bomb3.png"
+							"bomb2.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .1
+						AnimationStartTime = Zero
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"bomb_off.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .1
+						AnimationStartTime = Zero
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"roof_light1.png"
+							"roof_light2.png"
+							"roof_light3.png"
+							"roof_light4.png"
+							"roof_light5.png"
+							"roof_light4.png"
+							"roof_light3.png"
+							"roof_light2.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .1
+						AnimationStartTime = Zero
+					}
+				]
+			}
+			NonOperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"roof_light_off.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .1
+						AnimationStartTime = Zero
+					}
+				]
+			}
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+	}
+}
