@@ -1,0 +1,68 @@
+ID = cdrmoteer.shockwave
+OtherIDs = [shockwave]
+ReceivableBuffs = [Advanced_Vanilla_Weapons]
+Range = 500
+IdealRange = 500
+Speed = 0.5
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		Lifetime = 0.5
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+	
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = { BaseValue=500; BuffType=Advanced_Vanilla_Weapons; BuffMode=Multiply; }
+					Radius = 500
+					Falloff = 0
+					Delay = 0
+				}
+			]
+		}
+		HitShield
+		{
+			// No effect
+		}
+		HitStructural
+		{
+			// No effect
+		}
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			// No effect.
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+	}
+}
