@@ -1,0 +1,147 @@
+ID = "super_electro_bolt"
+Range = 125
+IdealRange = [60, 125]
+IdealRadius = [5, 50]
+Speed = 120
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture
+				{
+					File = "electro_bolt.png"
+					SampleMode = Linear
+					MipLevels = max
+				}
+				Size = [2, 2]
+			}
+			FrameCount = 8
+			FrameSize = [128, 128]
+			FramesPerRow = 2
+			FramesPerSecond = 60
+		}
+	}
+
+	MediaEffects
+	{
+		Type = MediaEffects
+		InheritVelocityFrom = Physics
+		MediaEffects
+		[
+			&<particles/electro_bolt_shot_glow.txt>
+		]
+	}
+
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		PenetratesShields = true
+		EffectScalePerHit = 0.66
+
+		HitShield
+		{
+			HitEffects
+			[
+				: ../../HitOperational/HitEffects/0
+				{
+					Amount = 900
+				}
+			]
+
+			MediaEffects = &../HitOperational/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAmmoDrain
+					AmmoType = battery
+					Amount = 600
+
+					MediaEffectsOnDrain
+					[
+						&<particles/electro_bolt_shot_glow.txt>
+
+						: /BASE_SOUNDS/AudioExterior
+						{
+							Sound = "discharge.wav"
+							Volume = 1
+							SpeedVariation = .2
+						}
+					]
+				}
+				{
+					Type = PartDamage
+					Damage = 100
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/electro_bolt_hit.txt>
+				&<particles/electro_bolt_sparks.txt>
+				&<particles/electro_bolt_flash.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 75
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/electro_bolt_hit_struct.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .3
+					SpeedVariation = .4
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational = &PenetratingOperational
+		FinishedPenetratingStructural = &PenetratingStructural
+	}
+}

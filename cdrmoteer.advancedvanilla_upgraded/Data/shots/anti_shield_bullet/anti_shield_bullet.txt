@@ -1,0 +1,175 @@
+ID = "cdrmoteer.anti_shield_bullet"
+Range = 175
+IdealRange = [60, 150]
+IdealRadius = [5, 50]
+Speed = 40
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture
+				{
+					File = "bullet_med.png"
+					SampleMode = Linear
+					MipLevels = max
+				}
+				Size = [1.5, 1.5]
+			}
+			FrameCount = 16
+			FrameSize = [128, 128]
+			FramesPerRow = 4
+			FramesPerSecond = 60
+		}
+	}
+
+	MediaEffects
+	{
+		Type = MediaEffects
+		InheritShooterVelocityFrom = Physics
+		MediaEffects
+		[
+			&<particles/bullet_trail_med.txt>
+		]
+	}
+
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		Penetration = 3.0
+		PenetrationSpeed = 20
+
+		HitShield
+		{
+			HitEffects
+			[
+				{
+					Type = ShieldDamage
+					Damage = 750
+				}
+				{
+					Type = Impulse;
+					Impulse = 20;
+				}
+				{
+					Type = AreaFires
+					FireChancePerTile = .2
+					FireRadius = 1.5
+					FireFalloff = 0
+					Delay = .05
+				}
+				{
+					Type = PartFire
+					FireChance = .5
+				}
+			]
+
+			MediaEffects = &../HitOperational/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 750
+				}
+				{
+					Type = Impulse;
+					Impulse = 20;
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_med.txt>
+				&<particles/bullet_smoke_med.txt>
+				&<particles/bullet_flash_med.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .05
+					Duration = .5
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 375
+				}
+				{
+					Type = Impulse;
+					Impulse = 10;
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_struct_med.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit_structure.wav"
+					Volume = .3
+					SpeedVariation = .4
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 375
+				}
+				{
+					Type = PartFire
+					FireChance = .2
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_penetrate_med.txt>
+				&<particles/bullet_flash_med.txt>
+			]
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational = &PenetratingOperational
+		FinishedPenetratingStructural = &PenetratingStructural
+	}
+}

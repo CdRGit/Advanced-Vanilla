@@ -1,0 +1,143 @@
+ID = "cdrmoteer.anti_ship_defense_shot"
+Range = 160
+Speed = 320
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.4
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Lower
+		Sprite
+		{
+			Texture
+			{
+				File = "anti_ship_defense_shot.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [8, .5]
+		}
+	}
+
+	AntiBullet
+	{
+		Type = AntiBullet
+		PhysicsComponent = Physics
+
+		HitBullet
+		{
+			HitEffects
+			[
+				{
+					Type = Random
+					RandomOptions
+					[
+						{
+							RandomWeight = 1
+							HitEffects
+							[
+								{
+									Type = BulletDamage
+									Damage = 1000
+								}
+							]
+						}
+						{
+							RandomWeight = 1
+							HitEffects []
+						}
+					]
+				}
+
+			]
+			
+			MediaEffects
+			[
+				{
+					Type = Random
+					Deterministic = true
+					RandomOptions
+					[
+						{
+							RandomWeight = 1
+							MediaEffects []
+						}
+						{
+							RandomWeight = 1
+							MediaEffects
+							[
+								&<particles/anti_ship_defense_shot_clink.txt>
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+		PhysicsComponent = Physics
+
+		HitShield
+		{
+			HitEffects
+			[
+				{
+					Type = ShieldDamage
+					Damage = 250
+				}
+				{
+					Type = Impulse
+					Impulse = 20
+				}
+			]
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 250
+				}
+				{
+					Type = Impulse
+					Impulse = 20
+				}
+			]
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = 250
+				}
+				{
+					Type = Impulse
+					Impulse = 20
+				}
+			]
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+	}
+}

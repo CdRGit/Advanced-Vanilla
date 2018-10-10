@@ -1,0 +1,173 @@
+ID = "cdrmoteer.explosive_bullet_med"
+OtherIDs = ["explosive_bullet_med"]
+Range = 175
+IdealRange = [60, 150]
+IdealRadius = [5, 50]
+Speed = 40
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture
+				{
+					File = "bullet_med.png"
+					SampleMode = Linear
+					MipLevels = max
+				}
+				Size = [1.5, 1.5]
+			}
+			FrameCount = 16
+			FrameSize = [128, 128]
+			FramesPerRow = 4
+			FramesPerSecond = 60
+		}
+	}
+
+	MediaEffects
+	{
+		Type = MediaEffects
+		InheritShooterVelocityFrom = Physics
+		MediaEffects
+		[
+			&<particles/bullet_trail_med.txt>
+		]
+	}
+
+		Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		Penetration = 5
+		PenetrationSpeed = 15
+
+		HitShield
+		{
+			HitEffects
+			[
+				{
+					Type = ShieldDamage
+					Damage = 2400
+				}
+				{
+					Type = Impulse;
+					Impulse = 80;
+				}
+			]
+
+			MediaEffects = &../HitOperational/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = 50
+					RadiusVsOperational = 1.5
+					DamageVsStructurePerTile = 50
+					RadiusVsStructure = 1.5
+				}
+				{
+					Type = Impulse;
+					Impulse = 80;
+				}
+				{
+					Type = AreaFires
+					FireChancePerTile = .2
+					FireRadius = 1.5
+					FireFalloff = 0
+					Delay = .05
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_hit_med.txt>
+				&<particles/bullet_smoke_med.txt>
+				&<particles/bullet_flash_med.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .75
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .1
+					Duration = .75
+				}
+			]
+		}
+		HitStructural = &HitOperational
+		PenetratingOperational
+		{
+			HitEffects
+			[				
+				{
+					Type = PartDamage
+					Damage = 100
+				}
+				{
+					Type = PartFire
+					FireChance = .2
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/bullet_penetrate_med.txt>
+				&<particles/bullet_flash_med.txt>
+			]
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = 600
+					RadiusVsOperational = 5.5
+					DamageVsStructurePerTile = 600
+					RadiusVsStructure = 5.5
+				}
+				{
+					Type = Impulse;
+					Impulse = 80;
+				}
+				{
+					Type = AreaFires
+					FireChancePerTile = .2
+					FireRadius = 5.5
+					FireFalloff = 0
+					Delay = .05
+				}
+			]
+		}
+		FinishedPenetratingStructural = &FinishedPenetratingOperational
+	}
+}

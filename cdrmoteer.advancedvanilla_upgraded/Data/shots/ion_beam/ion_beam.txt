@@ -1,0 +1,153 @@
+Type = Beam
+Range = 180
+IdealRange = 170
+Duration = 1
+HitInterval = .1
+
+BeamMediaEffects
+[
+	{
+		Type = Beam
+		BeamSprite
+		{
+			Texture
+			{
+				File = "beam_base.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			_baseColor = [255, 255, 255, 255]
+			Shader = "beam.shader"
+			_sizePulseFactor = 1.2
+			_sizePulseInterval = .1
+			_sizePulseUOffsetFactor = -.03
+			Size = [2.75, 0]// Only width matters.
+			VertexColor = [255, 255, 255, 217]
+		}
+		FadeInTime = .25
+		FadeOutTime = .25
+		ArcSpriteSegments = 64
+		Bucket = Middle1
+	}
+
+	&<particles/ion_beam_emit_sparks.txt>
+
+	: /BASE_SOUNDS/AudioExterior
+	{
+		Sound = "emit.wav"
+		Volume = 1
+		MaxConcurrent = 1
+		MaxConcurrentVolume = 1
+		IntensityRampUpTime = .25
+		IntensityRampDownTime = .25
+	}
+
+	: /BASE_SOUNDS/AudioExterior
+	{
+		Sound = "beam.wav"
+		Volume = 1
+		MaxConcurrent = 1
+		MaxConcurrentVolume = 1
+		IntensityRampUpTime = .25
+		IntensityRampDownTime = .25
+
+		DynamicVolume : ^/0/DynamicVolume
+		{
+			UseCustomShapeForDistance = true
+		}
+		DynamicFilter : ^/0/DynamicFilter
+		{
+			UseCustomShapeForDistance = true
+		}
+	}
+]
+
+HitShield
+{
+	HitEffects
+	[
+		{
+			Type = ShieldDamage;
+			Damage = 200;
+		}
+		{
+			Type = Impulse;
+			Impulse = 2;
+		}
+	]
+
+	MediaEffects = &../HitOperational/MediaEffects;
+}
+HitOperational
+{
+	HitEffects
+	[
+		{
+			Type = PartDamage;
+			Damage = 200;
+		}
+		{
+			Type = Impulse;
+			Impulse = 2;
+		}
+	]
+
+	MediaEffects
+	[
+		&<particles/ion_beam_hit.txt>
+		&<particles/ion_beam_hit_flash.txt>
+		&<particles/ion_beam_hit_sparks.txt>
+
+		: /BASE_SOUNDS/AudioExterior
+		{
+			Sound = "hit.wav"
+			Volume = .5
+			MaxConcurrent = 1
+			MaxConcurrentVolume = 1
+			IntensityRampUpTime = .25
+			IntensityRampDownTime = .25
+		}
+
+		: /BASE_SHAKE
+		{
+			ShakeAmount = .05
+			Duration = .5
+		}
+	]
+}
+
+HitStructural
+{
+	HitEffects
+	[
+		{
+			Type = PartDamage;
+			Damage = 150;
+		}
+		{
+			Type = Impulse;
+			Impulse = 1;
+		}
+	]
+
+	MediaEffects
+	[
+		&<particles/ion_beam_hit_struct.txt>
+
+		: /BASE_SOUNDS/AudioExterior
+		{
+			Sound = "hit.wav"
+			Volume = .25
+			MaxConcurrent = 1
+			MaxConcurrentVolume = .5
+			IntensityRampUpTime = .25
+			IntensityRampDownTime = .25
+		}
+
+		: /BASE_SHAKE
+		{
+			ShakeAmount = .025
+			Duration = .5
+		}
+	]
+}
