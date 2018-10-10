@@ -1,0 +1,6 @@
+Add
+{
+	Action = Add
+	AddTo = "<rules.txt>/Ships"
+	ToAdd = &<keainae.txt>/Keainae
+}

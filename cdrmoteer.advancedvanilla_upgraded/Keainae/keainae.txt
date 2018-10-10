@@ -1,0 +1,406 @@
+Keainae : <./Data/ships/base_ship.txt>
+{
+	IDString = cdrmoteer.keainae
+	NameKey = "ShipClasses/Keainae"
+	DefaultPartID = corridor
+	DefaultDoorID = door
+	HoleDoorID = wall_hole
+	ExternalWalls = &<./Data/ships/terran/walls/external walls.txt>
+	ExternalRoofWalls = &<./Data/ships/terran/walls/external roof walls.txt>
+
+	Parts
+	[
+		// Basic.
+		&<./Data/ships/terran/corridor/corridor.txt>/Part
+		&<./Data/ships/terran/structure/structure.txt>/Part
+		
+		// Control.
+		&<Parts/Control/fighter_cockpit/fighter_cockpit.txt>/Part
+		
+		// Engines.
+		&<Parts/Engines/thruster_fighter/thruster_fighter.txt>/Part
+		&<Parts/Engines/thruster_jump_small/thruster_jump_small.txt>/Part
+		
+		// Crew.
+		&<Parts/Crew/bunk/bunk.txt>/Part
+	]
+
+	Doors
+	[
+		&<./Data/ships/terran/door/door.txt>
+		&<./Data/ships/terran/wall_hole/wall_hole.txt>
+	]
+
+	CategoryNouns
+	[
+		{Category=thruster; SingularKey="CategoryNouns/ThrusterSingular"; PluralKey="CategoryNouns/ThrusterPlural"}
+	]
+
+	RenderLayers
+	[
+		// Floors.
+		{
+			Key = "floors"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = -400
+				RenderStage = Lower
+				DrawWithShipGhost = true
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Turrets.
+		{
+			Key = "turrets"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = -300
+				RenderStage = Lower
+				DrawWithShipGhost = true
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Low-level doodads.
+		{
+			Key = "doodads_low"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = -200
+				RenderStage = Lower
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Walls stencil.
+		{
+			Key = "walls_stencil"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = -100
+				RenderStage = Lower
+				DrawWithShipGhost = false
+				DrawToStencilTexture = true
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// <------------ CREW GET RENDERED HERE
+
+		// Weapons.
+		{
+			Key = "weapons" // Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 0
+				RenderStage = Upper
+				DrawWithShipGhost = true
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// High-level doodads.
+		{
+			Key = "doodads_high" // Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 100
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Additive lights.
+		{
+			Key = "lights_add"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 300
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+					TargetBlendMode
+					{
+						SourceRgbFactor = One
+						DestRgbFactor = One
+						RgbOperator = Add
+						SourceAlphaFactor = Zero
+						DestAlphaFactor = One
+						AlphaOperator = Add
+					}
+				}
+			}
+		}
+
+		// Fire
+		{
+			Key = "fire" // Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 400
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Doors.
+		{
+			Key = "doors"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 500
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/parts.shader"
+				}
+			}
+		}
+
+		// Walls.
+		{
+			Key = "walls"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 600
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/walls.shader"
+				}
+			}
+		}
+
+		// Roofs.
+		{
+			Key = "roofs"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 700
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				IsRoof = true
+				Inflate = .0001
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/roof_colored.shader"
+				}
+			}
+		}
+
+		// Roof doodads.
+		{
+			Key = "roof_doodads"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 800
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				IsRoof = true
+				Inflate = .0001
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/roof_uncolored.shader"
+				}
+			}
+		}
+
+		// Roof windows.
+		{
+			Key = "roof_windows"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 900
+				RenderStage = Upper
+				DrawWithShipGhost = false
+				IsRoof = true
+				Inflate = .0001
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/roof_uncolored.shader"
+				}
+			}
+		}
+
+		// Indicators
+		{
+			Key = "indicators"// Ship bucket layer.
+			Value // The actual material.
+			{
+				UniqueBucket = 1000
+				RenderStage = Indicators
+				DrawWithShipGhost = false
+				DrawForLocalPlayerOnly = true
+				AtlasTextureParams
+				{
+					MipLevels = 7 // Assumes 64x64 min part sprite size.
+				}
+				Material
+				{
+					Shader = "./Data/ships/common/indicators.shader"
+					_colorFluctuateLow = [255, 255, 255, 127]
+					_colorFluctuateHigh = [255, 255, 255, 255]
+					_fluctuateInterval = 1
+					_maxScale = 2
+					_background
+					{
+						File = "./Data/gui/game/indicators/indicator_background.png"
+						SampleMode = Linear
+						MipLevels = max
+					}
+				}
+			}
+		}
+	]
+
+	Blueprints : <./Data/ships/base_ship.txt>/Blueprints
+	{
+		ExternalWalls = &<./Data/ships/terran/Walls/external blueprint walls.txt>
+	}
+
+	Roofs : <./Data/ships/base_ship.txt>/Roofs
+	{
+		RoofTexturesFolders = ["./Data/roof_textures","keainae_roof_textures"]
+		DefaultRoofTexture = "plates1"
+		RoofDecalsFolders = ["./Data/roof_decals"]
+	}
+}
+
+FtlEffects
+{
+	TotalDuration = .75
+
+	CropTime = [0, .3]
+	CropSprite
+	{
+		Texture
+		{
+			File = "ftl_jump.png"
+			SampleMode = Linear
+			MipLevels = max
+		}
+		VertexColor = [191, 255, 255, 255]
+	}
+	CropSizeFactor = [.5, 1.25]
+	CropPulseInterval = .1
+	CropAlphaPulse = .2
+	CropWidthPulse = 0
+	CropHeightPulse = 0
+	CropZeroAlphaSize = 0
+	CropFullAlphaSize = .7
+
+	WarpEffectIn = [0, 0]
+	WarpEffectOut = [0, .75]
+	WarpEffectShader = "ftl_distortion.shader"
+	WarpEffectTexture
+	{
+		File = "ftl_distortion.png"
+		UVMode = Wrap
+		SampleMode = Linear
+		MipLevels = max
+	}
+
+	JumpOutMediaEffects
+	[
+		: /BASE_SOUNDS/AudioExterior
+		{
+			Sound = "ftl_jump_in.wav"
+			Volume = 2
+			MaxConcurrentVolume = 1
+			Speed = 1
+			MaxConcurrent = 1
+		}
+	]
+	JumpInMediaEffects
+	[
+		: /BASE_SOUNDS/AudioExterior
+		{
+			Sound = "ftl_jump_out.wav"
+			Volume = 1
+			MaxConcurrentVolume = 1
+			Speed = 1
+			MaxConcurrent = 1
+		}
+	]
+}
