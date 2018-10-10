@@ -1,0 +1,178 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/EnergizedArmor"
+	IconNameKey = "Parts/EnergizedArmorIcon"
+	IDString = cdrmoteer.energized_armor_2x1 
+	EditorGroup = "advanced_vanilla_group_defenses"
+	EditorReplacementPartID = cdrmoteer.energized_armor
+	DescriptionKey = "Parts/EnergizedArmorDesc"
+	Cost = 700
+	Size = [2, 1]
+	SelectionTypeID = "armor"
+	MaxHealth = 8000
+	AreaDamageBlockFactor = .25
+	TypeCategories = [armor]
+	Flammable = false
+	InitialPenetrationResistance = 7
+	ContinuingPenetrationResistance = &InitialPenetrationResistance
+	CreatePartPerTileWhenGrabbed = ""
+	CrewSpeedFactor = 0
+	Density = 2
+	IsRotateable = true
+	IsWalled = true
+	AllowedDoorLocations = []
+	GeneratorRequiresDoor = false
+	IgnoreRotationForMirroredSelection = true
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 32]
+	}
+	Components : ^/0/Components
+	{
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 0.5]
+			OperationalToggle = RepairToggle
+			ResetAnimationTrigger = DamageTrigger
+			Floor // This is needed so that armor shows up in ship ghosts.
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "armor.png"
+						Size = [2, 1]
+					}
+					{
+						File = "armor_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "armor_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"plasma1.png"
+							"plasma2.png"
+							"plasma3.png"
+							"plasma4.png"
+							"plasma5.png"
+							"plasma6.png"
+							"plasma7.png"
+							"plasma8.png"
+						]
+						Size = [2, 1]
+						AnimationInterval = .3333
+						AnimationStartTime = Zero
+						ClampAnimation = True
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"plasma1.png"
+							"plasma2.png"
+							"plasma3.png"
+							"plasma4.png"
+							"plasma5.png"
+							"plasma6.png"
+							"plasma7.png"
+							"plasma8.png"
+						]
+						Size = [2, 1]
+						AnimationInterval = .3333
+						AnimationStartTime = Zero
+						ClampAnimation = True
+					}
+				]
+			}
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [1, .5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 1]
+		}
+		
+		DamageTrigger
+		{
+			Type = DamageTrigger			
+		}
+		
+		RepairToggle
+		{
+			Type = HealthToggle
+			MinHealthFraction = 0%
+			MaxHealthFraction = 90%
+		}
+		
+		RepairTrigger
+		{
+			Type = RepeatingTrigger
+			OperationalToggle = RepairToggle // Optional
+			Interval = .6667 // Seconds
+		}
+		
+		RepairEffect
+		{
+			Type = TriggeredEffects
+			Trigger = RepairTrigger
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = -20
+					AllowFriendlyDamage = true
+				}
+			]
+		}
+	}
+}
