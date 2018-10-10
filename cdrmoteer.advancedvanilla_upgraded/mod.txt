@@ -1,0 +1,573 @@
+ID = cdrmoteer.advancedvanilla
+Name = "Advanced Vanilla Mod"
+Version = 1.0.0
+CompatibleGameVersions = ["0.14.0_rc1","0.14.0_rc2","0.14.0_rc3","0.14.0_rc4","0.14.0_rc5","0.14.0","0.14.1","0.14.2_rc1","0.14.2_rc2","0.14.2_rc3","0.14.2_rc4","0.14.2","0.14.3","0.14.4"]
+ModifiesMultiplayer = true
+Author = "CdRMoteer"
+Logo = "logo.png"
+Description = "This mod adds more vanilla styled items."\
+"\n\n"\
+"Credits:\n\n"\
+"Ideas: <good>CdRGames</good> \n"\
+"Overheat Indicator: <good>Chank</good> \n"\
+"Allowing me to use part of the auto++ code <good>JBox1</good> \n"\
+"Bounty Ship Designs: \n"\
+"<good>CdRMoteer</good> Big Green Bubble, Skull Crusher \n"\
+"<good>DraconisTheWyvern</good> Aveliathis, Viper, Steamer \n"\
+"<good>Zachary</good> Eye scorcher"
+StringsFolder = "Strings"
+ShipLibraries
+[
+	{
+		Folder = "Library";
+		NameKey = "Misc/AdvancedShipLibrary";
+	}
+]
+Actions
+[
+	//Add the bounty ships.
+	&<bounty.txt>/AddShips
+	&<bounty.txt>/AddShipCategory
+	&<Keainae/add.txt>/Add
+
+	{
+		Action = Add
+		AddTo = "<gui/game/indicators/indicators.txt>"
+		Name = "NoAdvancedVanillaWater"
+		ToAdd = "indicator_nowater.png"
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/indicators/indicators.txt>"
+		Name = "AdvancedVanillaIndicatorOverheat"
+		ToAdd = "indicator_overheat.png"
+	}
+	{
+		Action = Replace
+		Replace = "<gui/menus.txt>/LogoShip"
+		With = "Library/advanced_vanilla_logo.ship.png"
+	}
+	{
+		Action = Replace
+		Replace = "<gui/menus.txt>/MainMenuPlanet/StyleId"
+		With = "advanced_vanilla"
+	}
+	{
+		Action = Replace
+		Replace = "<gui/menus.txt>/MainMenuPlanet/Scale"
+		With = 0.75
+	}
+	{
+        Action = Add
+        AddTo = "<modes/singleplayer/bounty/bounty.txt>/StarterShips"
+    
+        ToAdd
+        {
+		Ship = "Library/Model-F.ship.png"
+		DescriptionKey = "StarterShips/ModelF"
+		}
+    }
+	{
+		Action = Overrides
+		OverrideIn = "<planets/planets.txt>/Styles"
+		Overrides
+		{
+			advanced_vanilla = &<planets/planet_advanced_vanilla.txt>
+		}
+	}
+	{
+        Action = Add
+        AddTo = "<modes/singleplayer/bounty/bounty.txt>/StarterShips"
+    
+        ToAdd
+        {
+		Ship = "Library/Model-O.ship.png"
+		DescriptionKey = "StarterShips/ModelO"
+		}
+    }
+	{
+        Action = Add
+        AddTo = "<modes/singleplayer/bounty/bounty.txt>/StarterShips"
+    
+        ToAdd
+        {
+		Ship = "Library/Model-Z.ship.png"
+		DescriptionKey = "StarterShips/ModelZ"
+		}
+    }
+	{
+		Action = Add
+		AddTo = "<gui/game/designer/editor_groups.txt>"
+		Name = "advanced_vanilla_group_weapons"
+		ToAdd
+		{
+			NameKey = "EditorGroups/advanced_vanilla_group_weapons"
+			Icon
+			{
+				Texture = "Gui/advanced_vanilla_group_weapons.png"
+			    SampleMode = Linear
+			    MipLevels = max
+			}
+		} 
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/designer/editor_groups.txt>"
+		Name = "advanced_vanilla_group_misc"
+		ToAdd
+		{
+			NameKey = "EditorGroups/advanced_vanilla_group_misc"
+			Icon
+			{
+				Texture = "Gui/advanced_vanilla_group_misc.png"
+			    SampleMode = Linear
+			    MipLevels = max
+			}
+		} 
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/designer/editor_groups.txt>"
+		Name = "advanced_vanilla_group_defenses"
+		ToAdd
+		{
+			NameKey = "EditorGroups/advanced_vanilla_group_defenses"
+			Icon
+			{
+				Texture = "Gui/advanced_vanilla_group_defenses.png"
+			    SampleMode = Linear
+			    MipLevels = max
+			}
+		} 
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/designer/editor_groups.txt>"
+		Name = "advanced_vanilla_group_power"
+		ToAdd
+		{
+			NameKey = "EditorGroups/advanced_vanilla_group_power"
+			Icon
+			{
+				Texture = "Gui/advanced_vanilla_group_power.png"
+			    SampleMode = Linear
+			    MipLevels = max
+			}
+		} 
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/designer/editor_groups.txt>"
+		Name = "advanced_vanilla_group_science"
+		ToAdd
+		{
+			NameKey = "EditorGroups/advanced_vanilla_group_science"
+			Icon
+			{
+				Texture = "Gui/advanced_vanilla_group_science.png"
+			    SampleMode = Linear
+			    MipLevels = max
+			}
+		} 
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/terran.txt>/Terran/Roofs/RoofDecalsFolders"
+		ToAdd = "RoofDecals"
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/terran.txt>/Terran/Roofs/RoofTexturesFolders"
+		ToAdd = "RoofTextures"
+	}
+	{
+		Action = Add
+		AddTo = "<ships/priorities.txt>"
+		Name = "Defense_Crew"
+		ToAdd = { First=201; Additional=202; Full=203; }
+	}
+	{
+		//adds the parts
+		Action = AddMany
+		AddTo = "<ships/terran/terran.txt>/Terran/Parts"
+		ManyToAdd = &<Parts/parts.txt>/Parts
+	}
+	{
+		//adds the doors
+		Action = AddMany
+		AddTo = "<ships/terran/terran.txt>/Terran/Doors"
+		ManyToAdd = &<Parts/parts.txt>/Doors
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd
+		{
+			ID = explosive_bullet
+			MaxCarried = 2
+		MaxCarriedSprites = 2
+		CarriedSprite
+		{
+			File = "Ammo/bullet.png"
+			Size = [1, 1]
+		}
+		CarriedSpriteOffset = [0, .25]
+		AdditionalCarriedSpriteCumulativeOffset = [0, .15]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd
+		{
+			ID = advanced_vanilla_water
+		MaxCarried = 1000
+		CarriesMultiple = 1000
+		CarriedSprite
+		{
+			AnimationFiles
+			[
+				"Ammo/water1.png"
+				"Ammo/water2.png"
+				"Ammo/water3.png"
+				"Ammo/water4.png"
+			]
+			AnimationInterval = 0.15
+			Size = [1, 1]
+		}
+		CarriedSpriteOffset = [0, .25]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd
+		{
+			ID = advanced_vanilla_steam
+		MaxCarried = 1000
+		CarriesMultiple = 1000
+		CarriedSprite
+		{
+			AnimationFiles
+			[
+				"Ammo/steam1.png"
+				"Ammo/steam2.png"
+				"Ammo/steam3.png"
+				"Ammo/steam4.png"
+			]
+			AnimationInterval = 0.15
+			Size = [1, 1]
+		}
+		CarriedSpriteOffset = [0, .25]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd
+		{
+			ID = advanced_vanilla_ice
+		MaxCarried = 1000
+		CarriesMultiple = 1000
+		CarriedSprite
+		{
+			AnimationFiles
+			[
+				"Ammo/ice1.png"
+				"Ammo/ice2.png"
+				"Ammo/ice3.png"
+				"Ammo/ice4.png"
+			]
+			AnimationInterval = 0.15
+			Size = [1, 1]
+		}
+		CarriedSpriteOffset = [0, .25]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<Ammo/ammo.txt>/Ammo"
+		ToAdd
+		{
+			ID = advanced_vanilla_heat
+		MaxCarried = 0
+		CarriesMultiple = 0
+		CarriedSprite
+		{
+			File = "Ammo/black_hole.png"
+			Size = [1, 1]
+		}
+		CarriedSpriteOffset = [0, .25]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<buffs/buffs.txt>"
+		Name = "Keainae_Tier_1_Problem"
+		ToAdd
+		{
+			CombineMode = Add
+			BaseValue = 0%
+
+			Icon
+			{
+				Texture
+				{
+					File = "null.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+				Size = [1, 1]
+			}
+			IconTextFormatKey = "Misc/Null"
+			IconTextMultiply = 1
+			IconTextAdd = 0
+	
+			RectBorderColor = [255, 0, 0, 255]
+			RectFillColor = [255, 0, 0, 10]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<buffs/buffs.txt>"
+		Name = "Keainae_Tier_1_Control"
+		ToAdd
+		{
+			CombineMode = Max
+			BaseValue = 0%
+
+			Icon
+			{
+				Texture
+				{
+					File = "null.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+				Size = [1, 1]
+			}
+			IconTextFormatKey = "Misc/Null"
+			IconTextMultiply = 1
+			IconTextAdd = 0
+	
+			RectBorderColor = [0, 255, 0, 255]
+			RectFillColor = [0, 255, 0, 10]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<buffs/buffs.txt>"
+		Name = "Keainae_Tier_1_Range"
+		ToAdd
+		{
+			CombineMode = Max
+			BaseValue = 0%
+
+			Icon
+			{
+				Texture
+				{
+					File = "null.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+				Size = [1, 1]
+			}
+			IconTextFormatKey = "Misc/Null"
+			IconTextMultiply = 1
+			IconTextAdd = 0
+	
+			RectBorderColor = [0, 0, 255, 255]
+			RectFillColor = [0, 0, 255, 10]
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<buffs/buffs.txt>"
+		Name = "Advanced_Vanilla_Defense"
+		ToAdd
+	{
+		CombineMode = Max
+		BaseValue = 100%
+
+		Icon
+		{
+			Texture
+			{
+				File = "Gui/buff_defense.png"
+				MipLevels = 2
+				SampleMode = Linear
+			}
+			Size = [2, 2]
+		}
+		IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+		IconTextMultiply = 100
+		IconTextAdd = -100
+	
+		RectBorderColor = [255, 0, 255, 160]
+		RectFillColor = [255, 0, 255, 64]
+	}
+	}
+	{
+		Action = Add
+		AddTo = "<buffs/buffs.txt>"
+		Name = "Advanced_Vanilla_Weapons"
+		ToAdd
+	{
+		CombineMode = Max
+		BaseValue = 100%
+
+		Icon
+		{
+			Texture
+			{
+				File = "Gui/buff_weapons.png"
+				MipLevels = 2
+				SampleMode = Linear
+			}
+			Size = [2, 2]
+		}
+		IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+		IconTextMultiply = 100
+		IconTextAdd = -100
+	
+		RectBorderColor = [255, 0, 0, 160]
+		RectFillColor = [255, 0, 0, 64]
+	}
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
+		ToAdd
+		{
+			TriggerID = "destroy_self_destruct_cores"
+			ButtonToolTipKey = "PartTriggers/SelfDestruct"
+			ShowWithShipCommands = true
+			DefaultHotkey = [PlatformCmdCtrl, T]
+			ButtonSprite
+			{
+				Texture
+				{
+					File = "gui/trigger_self_destruct.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+			}
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
+		ToAdd
+		{
+			TriggerID = "detach_detach_cores"
+			ButtonToolTipKey = "PartTriggers/Detach"
+			ShowWithShipCommands = true
+			DefaultHotkey = [PlatformCmdCtrl, R]
+			ButtonSprite
+			{
+				Texture
+				{
+					File = "gui/trigger_detach.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+			}
+		}
+	}
+	
+	{
+	Action = AddMany
+	AddTo = "<Tutorials/tutorials.txt>/TutorialPages"
+	ManyToAdd
+	[
+	&<Tutorials/advanced_parts.txt>
+	]
+	}
+	
+	// This adds the buff for the auto weapon controller. Despite Automation ++ adding it automatically, an end user may not have Automation ++ loaded. This will make sure that the buff is loaded, even if it isn't going to be in use. Alternatively, if you're mod is designed to be mounted with Automation ++, not standalone, feel free to negate this action.
+	{
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.txt>"
+		Overrides
+		{
+			AutoWeaponsEnable
+			{
+				CombineMode = Max
+				Icon
+				{
+					Texture
+					{
+						File = "buff_enable.png"
+						MipLevels = 2
+						SampleMode = Linear
+					}
+					Size = [2, 2]
+				}
+				RectBorderColor = [0, 255, 84, 160]
+				RectFillColor = [0, 255, 84, 64]
+				
+				IconTextFormatKey = "Misc/Null"
+			}
+		}
+	}
+	
+	// This adds the buff for the auto reactor. Despite Automation ++ adding it automatically, an end user may not have Automation ++ loaded. This will make sure that the buff is loaded, even if it isn't going to be in use. Alternatively, if you're mod is designed to be mounted with Automation ++, not standalone, feel free to negate this action.
+	{
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.txt>"
+		Overrides
+		{
+			AutoReactorSupply
+			{
+				CombineMode = Add
+				BaseValue = 0
+				MaxValue = 1
+				Icon
+				{
+					Texture
+					{
+						File = "null.png"
+						MipLevels = 0
+						SampleMode = Linear
+					}
+					Size = [1, 1]
+					}
+				IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+				IconTextMultiply = 100
+	
+				RectBorderColor = [0, 255, 84, 160]
+				RectFillColor = [0, 255, 84, 64]
+			}
+		}
+	}
+	
+	// This adds the buff for the auto reactor. Despite Automation ++ adding it automatically, an end user may not have Automation ++ loaded. This will make sure that the buff is loaded, even if it isn't going to be in use. Alternatively, if you're mod is designed to be mounted with Automation ++, not standalone, feel free to negate this action.
+	{
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.txt>"
+		Overrides
+		{
+			AutoReactorSupplyPenalty
+{
+	CombineMode = Add
+	BaseValue = 0
+	
+	Icon
+	{
+		Texture
+		{
+			File = "null.png"
+			MipLevels = 0
+			SampleMode = Linear
+		}
+		Size = [1, 1]
+	}
+	RectBorderColor = [0, 0, 0, 0]
+	RectFillColor = [0, 0, 0, 0]
+	
+	IconTextFormatKey = "Misc/Null"
+}
+		}
+	}
+]

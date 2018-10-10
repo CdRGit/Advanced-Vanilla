@@ -1,0 +1,243 @@
+Keainae
+{
+	Parts
+	{
+		FighterCockpit = "Keainae Fighter Cockpit"
+		FighterCockpitIcon = "Fighter Cockpit"
+		FighterCockpitDesc = "This cockpit allows your ship to use <good>Keainae Tier 1</good> tech, it can support up to 20 Tier 1 parts, if more are added it will stop functioning"
+		
+		ThrusterFighter = "Keainae Fighter Engine"
+		ThrusterFighterIcon = "Fighter Engine"
+		ThrusterFighterDesc = "A small thruster with a bit of vectoring, great for maneuvering your fighters around. \n<good>Keainae Tier 1</good>"
+		
+		CrewQuartersSmall = "Keainae Crew Bunk"
+		CrewQuartersSmallIcon = "Crew Bunk"
+		CrewQuartersSmallDesc = "A small bunk for one crew member."
+		
+		ThrusterJumpSmall = "Small Keainae Jump Engine"
+		ThrusterJumpSmallIcon = "Small Jump Engine"
+		ThrusterJumpSmallDesc = "A small thruster meant to jump through space. \n<good>Keainae Tier 1</good>"
+	}
+}
+
+Parts
+{
+	SniperPointDefense = "Sniper Point Defense"
+	SniperPointDefenseDesc = "A sniper point defense!"
+	SniperPointDefenseIcon = "Sniper Point Defense"
+	
+	ShotgunPointDefense = "Shotgun Point Defense"
+	ShotgunPointDefenseDesc = "A shotgun point defense!"
+	ShotgunPointDefenseIcon = "Shotgun Point Defense"
+	
+	AdvancedDefenseResearchStation = "Advanced Defense Station"
+	AdvancedDefenseResearchStationDesc = "unlocks Advanced Defenses and buffs nearby advanced defenses."
+	AdvancedDefenseResearchStationIcon = "Advanced Defense Station"
+	
+	AdvancedWeaponsResearchStation = "Advanced Weapons Station"
+	AdvancedWeaponsResearchStationDesc = "unlocks Advanced Weapons and buffs nearby advanced weapons."
+	AdvancedWeaponsResearchStationIcon = "Advanced Weapons Station"
+	
+	AdvancedPowerResearchStation = "Advanced Power Station"
+	AdvancedPowerResearchStationDesc = "unlocks Advanced Power"
+	AdvancedPowerResearchStationIcon = "Advanced Power Station"
+	
+	SuperFtlDrive = "Super FTL Drive"
+	SuperFtlDriveIcon = &SuperFtlDrive
+	SuperFtlDriveDesc = "Enables the ship to jump to other locations in the galaxy using faster-than-light (F.T.L.) technology."
+	
+	ElectricBeam = "Power Transmitter Beam"
+	ElectricBeamDesc = "Can power distant systems"
+	ElectricBeamIcon = "Power Transmitter Beam"
+	
+	TractorBeam = "Tractor Beam"
+	TractorBeamDesc = "Attracts other ships and passes straight trough shields dealing a little bit of damage!"
+	TractorBeamIcon = "Tractor Beam"
+	
+	ExpulsorBeam = "Repulsor Beam"
+	ExpulsorBeamDesc = "Repels other ships and passes straight trough shields dealing a little bit of damage!"
+	ExpulsorBeamIcon = "Repulsor Beam"
+	
+	Carpet = "Carpet"
+	CarpetDesc = "A soft piece of cloth made to decorate your ships"
+	CarpetIcon = "Carpet"
+	
+	ShockwaveGenerator = "Shockwave Generator"
+	ShockwaveGeneratorDesc = "Is able to shutdown most enemy systems"
+	ShockwaveGeneratorIcon = "Shockwave Gen."
+	
+	NewShieldGenSmall = "Shield Generator"
+	NewShieldGenSmallIcon = &ShieldGenSmall
+	NewShieldGenSmallDesc = "Projects a defensive energy shield in an arc outside the ship, blocking most incoming fire."
+	
+	ExplosiveAmmoFactory = "Explosive Cannon Ammo Factory"
+	ExplosiveAmmoFactoryIcon = "Explosive Ammo Factory"
+	ExplosiveAmmoFactoryDesc = "Manufactures highly explosive projectile ammunition used by explosive cannons."
+
+	ExplosiveAmmoStorage = "Explosive Cannon Ammo Storage"
+	ExplosiveAmmoStorageIcon = "Explosive Ammo Storage"
+	ExplosiveAmmoStorageDesc = "Stores a limited cache of explosive ammunition used by cannons, which is manufactured separately by an Explosive Cannon Ammo Factory."
+	
+	ExplosiveCannonLarge = "Large Explosive Cannon"
+	ExplosiveCannonLargeIcon = &ExplosiveCannonLarge
+	ExplosiveCannonLargeDesc = "Fuses together four rounds of explosive projectile ammunition to greatly enhance damage and penetration depth compared to the Standard Explosive Cannon."
+	
+	ExplosiveCannonMed = "Standard Explosive Cannon"
+	ExplosiveCannonMedIcon = &ExplosiveCannonMed
+	ExplosiveCannonMedDesc = "Fires single rounds of explosive projectile ammunition that can penetrate into enemy ships, sometimes starting fires."
+	
+	RepairSystem = "In-Combat Repair System"
+	RepairSystemDesc = "Does minor repairs while still in combat."
+	RepairSystemIcon = "Repair System"
+	
+	TEIA = "Thermal Energy Interception Array"
+	TEIADesc = "The T.E.I.A. was designed as a point defense system for capital ships, it has 5 turrets with different stats, it is very power hungry."
+	TEIAIcon = "T.E.I.A."
+	
+	SurfaceShieldGenSmall = "Surface Shield Generator"
+	SurfaceShieldGenSmallDesc = "Projects a protective shield just outside of the ship, protecting your weapons against attacks."
+	SurfaceShieldGenSmallIcon = "Surface Shield Gen."
+	
+	CopperDoor = "Copper Door"
+	CopperDoorIcon = &CopperDoor
+	CopperDoorDesc = "For those bored of the normal doors, useful for sprucing up your ships."
+	
+	SafetyDoor = "Safety Door"
+	SafetyDoorIcon = &SafetyDoor
+	SafetyDoorDesc = "due to its quick opening and closing this door is the best door to stop radiation."
+	
+	SilverDoor = "Silver Door"
+	SilverDoorIcon = &SilverDoor
+	SilverDoorDesc = "For those who want to make their ships seem more expensive, and make them more expensive."
+	
+	GoldDoor = "Gold Door"
+	GoldDoorIcon = &GoldDoor
+	GoldDoorDesc = "The crème de la crème of metal doors, used on the most expensive capital ships."
+	
+	DiamondDoor = "Diamond Door"
+	DiamondDoorIcon = &DiamondDoor
+	DiamondDoorDesc = "It's made of diamonds, used in ships of governors and generals."
+	
+	EmeraldDoor = "Emerald Door"
+	EmeraldDoorIcon = &EmeraldDoor
+	EmeraldDoorDesc = "When you're done looking at your shiny blue doors it might be worth it to swap them out for these pure emerald doors."
+	
+	RubyDoor = "Ruby Door"
+	RubyDoorIcon = &RubyDoor
+	RubyDoorDesc = "When you're done looking at your shiny green doors it might be worth it to swap them out for these pure ruby doors, some people say they make your crew more bloodthirsty."
+	
+	AmethystDoor = "Amethyst Door"
+	AmethystDoorIcon = &AmethystDoor
+	AmethystDoorDesc = "When you're done looking at your shiny red doors it might be worth it to swap them out for these pure amethyst doors, purple was once an insanely expensive dye, these purple doors make you look so rich, your friends won't believe their eyes."
+	
+	ForceFieldDoor = "Forcefield Door"
+	ForceFieldDoorIcon = &ForceFieldDoor
+	ForceFieldDoorDesc = "For those who are bored of seeing their doors slide open, this door vanishes!"
+	
+	NeutroniumDoor = "Neutronium Door"
+	NeutroniumDoorIcon = &NeutroniumDoor
+	NeutroniumDoorDesc = "One of the densest and strongest materials known to mankind, neutronium, turned into a door, because the shaping of the door was such a long task this door is rather expensive, but trust me it's worth it!"
+	
+	ScienceVesselBridge = "Science Vessel Bridge"
+	ScienceVesselBridgeIcon = &ScienceVesselBridge
+	ScienceVesselBridgeDesc = "A very advanced bridge that also unlocks science!"
+	
+	WaterGatherer = "Water Collecter"
+	WaterGathererIcon = &WaterGatherer
+	WaterGathererDesc = "Collects water, the main item in scientific systems!"
+	
+	WaterStorage = "Water Storage"
+	WaterStorageIcon = &WaterStorage
+	WaterStorageDesc = "Stores Water!"
+	
+	Boiler = "Water Boiler"
+	BoilerIcon = &Boiler
+	BoilerDesc = "Boils Water into Steam!"
+	
+	Freezer = "Water Freezer"
+	FreezerIcon = &Freezer
+	FreezerDesc = "Freezes Water into Ice!"
+	
+	WaterLauncher = "Water Launcher"
+	WaterLauncherIcon = &WaterLauncher
+	WaterLauncherDesc = "Launches water towards the enemy, causing mass-shortcircuits!"
+	
+	IceLauncher = "Ice Launcher"
+	IceLauncherIcon = &IceLauncher
+	IceLauncherDesc = "Launches ice towards the enemy, causing freezing damage!"
+	
+	SteamLauncher = "Steam Launcher"
+	SteamLauncherIcon = &SteamLauncher
+	SteamLauncherDesc = "Launches 300°C steam towards the enemy, causing equipment to overheat and light on fire!"
+	
+	TorpedoLauncherExternal = "External Torpedo Launcher"
+	TorpedoLauncherExternalIcon = &TorpedoLauncherExternal
+	TorpedoLauncherExternalDesc = "Launches fast flying yet slow turning missiles, the engines are FTL infused!"
+	
+	SelfDestructCore = "Self-Destruct Core"
+	SelfDestructCoreIcon = &SelfDestructCore
+	SelfDestructCoreDesc = "When you don't want the enemy taking your ship press <btn id='PartTriggers.destroy_self_destruct_cores'/>!"
+	
+	DetachCore = "Detach Core"
+	DetachCoreIcon = &DetachCore
+	DetachCoreDesc = "if you need part of your ship to fall off press <btn id='PartTriggers.detach_detach_cores'/>!"
+	
+	EnergizedArmor = "Energized Armor"
+	EnergizedArmorIcon = &EnergizedArmor
+	EnergizedArmorDesc = "A special variant of armor, can repair itself over time!"
+	
+	ThermoCoil = "Thermo Coil"
+	ThermoCoilIcon = &ThermoCoil
+	ThermoCoilDesc = "A plasma superheater, can light the enemies on fire!"
+	
+	AmmoExplosiveAutoLoader = "Automated Explosive Ammunition Loader"
+	AmmoExplosiveAutoLoaderIcon = "Auto Explosive Ammo Loader"
+	AmmoExplosiveAutoLoaderDesc = "Takes power from auto reactors, and uses it to manufacture explosive ammunition, which is loaded into whatever machinery is in front of the auto loader."
+}
+EditorGroups
+{
+	advanced_vanilla_group_defenses = "Advanced Defenses"
+	advanced_vanilla_group_power = "Advanced Power"
+	advanced_vanilla_group_weapons = "Advanced Weapons"
+	advanced_vanilla_group_misc = "Miscellaneous Items"
+	advanced_vanilla_group_science = "Science Stuff"
+}
+Misc
+{
+	AdvancedShipLibrary = "Advanced Vanilla Ships"
+	Null = ""
+}
+StarterShips
+{
+	ModelF = "The Model-F is a lightly armoured fighter that focusses on offense rather than defense. Due to problems with money the ship isn't completely finished"
+	ModelO = "The Model-O is a small fighter that can disable shields and destroy parts, it has a defensive shield generator."
+	ModelZ = "The Model-Z is a small yet effective ship, it  lacks any good protection."
+}
+Inputs
+{
+	PartTriggers
+	{
+		destroy_self_destruct_cores = "Detonate Self Destruct Cores"
+		detach_detach_cores = "Detach Detach Cores"
+	}
+	
+}
+PartTriggers
+{
+	SelfDestruct = "Detonate Self Destruct Cores\n\nHotkey: <btn id='PartTriggers.destroy_self_destruct_cores'/>"
+	Detach = "Detach Detach Cores\n\nHotkey: <btn id='PartTriggers.detach_detach_cores'/>"
+}
+
+Tutorials
+{
+	advanced_parts
+	{
+		Title = "Advanced Parts"
+		Text = "For most advanced parts you need an unlocker,\n it is generally the first part in the category,\n most look like this,\nthey usually give a buff to items in their category."
+	}
+}
+
+ShipClasses
+{
+	Keainae = "Keainae"
+}

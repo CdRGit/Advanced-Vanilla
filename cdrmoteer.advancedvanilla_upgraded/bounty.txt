@@ -1,0 +1,39 @@
+AddShips
+{
+	Action = AddMany;
+	AddTo = "<modes/singleplayer/bounty/bounty.txt>/Bounties"
+	ManyToAdd
+	[
+		{
+			BaseValue = 162500
+			DesignedShip = "Library/Enemies/CdRMoteer/Skull Crusher.ship.png"
+		}
+		{
+			BaseValue = 162500
+			DesignedShip = "Library/Enemies/Zachary/Eye scorcher.ship.png"
+		}
+		{
+			BaseValue = 1077300
+			DesignedShip = "Library/Enemies/DraconisTheWyvern/Viper.ship.png"
+		}
+		{
+			BaseValue = 474100
+			DesignedShip = "Library/Enemies/DraconisTheWyvern/Aveliathis.ship.png"
+		}
+		{
+			BaseValue = 1077300
+			DesignedShip = "Library/Enemies/DraconisTheWyvern/Steamer.ship.png"
+		}
+		{
+			BaseValue = 296550
+			DesignedShip = "Library/Enemies/CdRMoteer/Big Green Bubble.ship.png"
+		}
+	]
+}
+
+AddShipCategory
+{
+	Action = Add
+	AddTo = "<modes/singleplayer/bounty/bounty.txt>/AllowsBuyShipRulesIDs"
+	ToAdd = "cdrmoteer.keainae"
+}

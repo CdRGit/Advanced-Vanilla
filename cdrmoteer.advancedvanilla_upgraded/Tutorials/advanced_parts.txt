@@ -1,0 +1,10 @@
+ID = advanced_parts_tutorial
+TitleKey = "Tutorials/advanced_parts/Title"
+ShowCondition = "? game.HasPartCategoryInHand('advanced_parts')"
+Entries
+[
+	{
+		Image { Texture { File="unlocker.png"; SampleMode=Linear; } }
+		TextKey = "Tutorials/advanced_parts/Text"
+	}
+]
