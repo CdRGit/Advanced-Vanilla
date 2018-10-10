@@ -1,0 +1,790 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/EnergizedArmor"
+	IconNameKey = "Parts/EnergizedArmorIcon"
+	IDString = cdrmoteer.energized_armor_wedge 
+	EditorGroup = "advanced_vanilla_group_defenses"
+	DescriptionKey = "Parts/EnergizedArmorDesc"
+	Cost = 175
+	Size = [1, 1]
+	AllowedContiguity = [Right, Bottom]
+	SelectionTypeID = "armor"
+	MaxHealth = 2000
+	AreaDamageBlockFactor = .25
+	TypeCategories = [armor]
+	Flammable = false
+	CreatePartPerTileWhenDestroyed = ""
+	CreatePartWhenDestroyed = structure_wedge
+	CreatePartPerTileWhenGrabbed = ""
+	InitialPenetrationResistance = 5
+	ContinuingPenetrationResistance = &InitialPenetrationResistance
+	CrewSpeedFactor = 0
+	Density = 2
+	IsRotateable = true
+	IsWalled = true
+	ExternalWalls = [TopRight, Right, BottomRight, Bottom, BottomLeft]
+	InternalWalls = [Left, TopLeft, Top]
+	AllowedDoorLocations = []
+	GeneratorRequiresDoor = false
+	FlipHRotate = [1, 0, 3, 2]
+	FlipVRotate = [3, 2, 1, 0]
+	CustomCollider
+	[
+		[1, 0]
+		[1, 1]
+		[0, 1]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		Graphics
+		{
+			Type = Graphics
+			Location = [0.5, 0.5]
+			OperationalToggle = RepairToggle
+			ResetAnimationTrigger = DamageTrigger
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "armor.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+					{
+						File = "armor_33.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+					{
+						File = "armor_66.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+						UVRotation = 0
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"plasma1.png"
+							"plasma2.png"
+							"plasma3.png"
+							"plasma4.png"
+							"plasma5.png"
+							"plasma6.png"
+							"plasma7.png"
+							"plasma8.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .3333
+						AnimationStartTime = Zero
+						ClampAnimation = True
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"plasma1.png"
+							"plasma2.png"
+							"plasma3.png"
+							"plasma4.png"
+							"plasma5.png"
+							"plasma6.png"
+							"plasma7.png"
+							"plasma8.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .3333
+						AnimationStartTime = Zero
+						ClampAnimation = True
+					}
+				]
+			}
+		}
+
+		TriRoof0a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 0
+			Location = [.5, -.5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*0****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		TriRoof0b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 0
+			Location = [-.5, .5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****000"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		TriRoof1a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 1
+			Location = [.5, -.5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***0*0**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		TriRoof1b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 1
+			Location = [-.5, .5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "00*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		TriRoof2a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 2
+			Location = [.5, -.5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****0*0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		TriRoof2b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 2
+			Location = [-.5, .5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*000****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		TriRoof3a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 3
+			Location = [.5, -.5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+		TriRoof3b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 3
+			Location = [-.5, .5]
+			Layer = "roofs"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***000**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_roof.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+
+		TriWall0a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 0
+			Location = [.5, -.5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*0****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		TriWall0b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 0
+			Location = [-.5, .5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****000"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		TriWall1a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 1
+			Location = [.5, -.5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***0*0**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		TriWall1b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 1
+			Location = [-.5, .5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "00*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		TriWall2a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 2
+			Location = [.5, -.5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****0*0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		TriWall2b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 2
+			Location = [-.5, .5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*000****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		TriWall3a
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 3
+			Location = [.5, -.5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+		TriWall3b
+		{
+			Type = BlendSprite
+			OnlyWithRotation = 3
+			Location = [-.5, .5]
+			Layer = "walls"
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***000**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_armor.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+
+		BlueprintTri0a
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 0
+			Location = [.5, -.5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*0****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri0b
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 0
+			Location = [-.5, .5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****000"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 0
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri1a
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 1
+			Location = [.5, -.5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***0*0**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri1b
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 1
+			Location = [-.5, .5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "00*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 1
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri2a
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 2
+			Location = [.5, -.5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*****0*0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri2b
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 2
+			Location = [-.5, .5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*000****"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 2
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri3a
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 3
+			Location = [.5, -.5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "*0*****0"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+		BlueprintTri3b
+		{
+			Type = BlueprintBlendSprite
+			OnlyWithRotation = 3
+			Location = [-.5, .5]
+			BlendCheckRectType = Physical
+			AllowUndefinedBlendSprites = true
+			RequireExternalWallsToBlend = true
+			AmbiguousSprites
+			[
+				{
+					SituationCode = "***000**"
+					AllowRotation = false
+					DamageLevels
+					[
+						{
+							File = "tri_blueprints.png"
+							Size = [1, 1]
+							UVRotation = 3
+						}
+					]
+				}
+			]
+		}
+		
+		DamageTrigger
+		{
+			Type = DamageTrigger			
+		}
+		
+		RepairToggle
+		{
+			Type = HealthToggle
+			MinHealthFraction = 0%
+			MaxHealthFraction = 90%
+		}
+		
+		RepairTrigger
+		{
+			Type = RepeatingTrigger
+			OperationalToggle = RepairToggle // Optional
+			Interval = .6667 // Seconds
+		}
+		
+		RepairEffect
+		{
+			Type = TriggeredEffects
+			Trigger = RepairTrigger
+			HitEffects
+			[
+				{
+					Type = PartDamage
+					Damage = -5
+					AllowFriendlyDamage = true
+				}
+			]
+		}
+	}
+}

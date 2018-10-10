@@ -1,0 +1,67 @@
+ID = cdrmoteer.repair
+ReceivableBuffs = [Advanced_Vanilla_Defense]
+Range = 500
+IdealRange = 500
+Speed = 0.5
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		Lifetime = 0.5
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+	
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = { BaseValue=-150; BuffType=Advanced_Vanilla_Defense; BuffMode=Multiply; }
+					RadiusVsOperational = 15
+					DamageVsStructurePerTile = { BaseValue=-150; BuffType=Advanced_Vanilla_Defense; BuffMode=Multiply; }
+					RadiusVsStructure = 15
+					AllowFriendlyDamage = true
+				}
+			]
+		}
+		HitShield
+		{
+			// No effect
+		}
+		HitStructural
+		{
+			// No effect
+		}
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			// No effect.
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+	}
+}
