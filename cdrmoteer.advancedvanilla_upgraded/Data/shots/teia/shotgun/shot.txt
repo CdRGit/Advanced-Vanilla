@@ -1,0 +1,121 @@
+ID = cdrmoteer.teia.shotgun
+Range = 1
+Speed = 2800
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.4
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		PhysicsComponent = Physics
+
+        OnDeath
+        {
+            HitEffects
+            [
+                {
+                    Type = SpawnBullets
+                    Bullet = &<shot_splitup.txt>
+                    Count = [5, 15]
+                    Distance = [0, 2]
+                    Arc = [-15d, 30d]
+                    Spread = [-10d, 10d]
+                    InheritVelocity = false
+                }
+            ]
+        }
+	}
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Lower
+		Sprite
+		{
+			Texture
+			{
+				File = "pd_shot.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [8, .5]
+		}
+	}
+
+	AntiBullet
+	{
+		Type = AntiBullet
+		PhysicsComponent = Physics
+
+		HitBullet
+		{
+			HitEffects
+			[
+				{
+					Type = Random
+					RandomOptions
+					[
+						{
+							RandomWeight = 1
+							HitEffects
+							[
+								{
+									Type = BulletDamage
+									Damage = 1000
+								}
+							]
+						}
+						{
+							RandomWeight = 1
+							HitEffects []
+						}
+					]
+				}
+
+			]
+			
+			MediaEffects
+			[
+				{
+					Type = Random
+					Deterministic = true
+					RandomOptions
+					[
+						{
+							RandomWeight = 1
+							MediaEffects []
+						}
+						{
+							RandomWeight = 1
+							MediaEffects
+							[
+								&<particles/pd_shot_clink.txt>
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+		PhysicsComponent = Physics
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects = []
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitStructural = &HitOperational
+	}
+}

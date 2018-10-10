@@ -1,0 +1,214 @@
+ID = "cdrmoteer.thermo_coil_bolt"
+Range = 150
+IdealRange = [60, 150]
+IdealRadius = [5, 50]
+Speed = 60
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		Offset = [-1, 0]
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture
+				{
+					File = "thermo_coil_bolt.png"
+					SampleMode = Linear
+					MipLevels = max
+				}
+				Size = [3.75, 2.5]
+			}
+			FrameCount = 8
+			FrameSize = [192, 128]
+			FramesPerRow = 2
+			FramesPerSecond = 30
+		}
+	}
+
+	MediaEffects1
+	{
+		Type = MediaEffects
+		InheritShooterVelocityFrom = Physics
+		MediaEffects
+		[
+			&<particles/laser_bolt_large_trail.txt>
+		]
+	}
+
+	MediaEffects2
+	{
+		Type = MediaEffects
+		InheritVelocityFrom = Physics
+		MediaEffects
+		[
+			&<particles/laser_bolt_large_glow.txt>
+		]
+	}
+
+	Hit
+	{
+		Type = PenetratingHit
+		PhysicsComponent = Physics
+		Penetration = 30.0
+		PenetrationSpeed = 10
+
+		HitShield
+		{
+			HitEffects
+			[
+				{
+					Type = ShieldDamage
+					Damage = 900
+				}
+				{
+					Type = PartFire
+					FireChance = .9
+					Delay = 2
+				}
+				{
+					Type = Impulse
+					Impulse = 10
+				}
+			]
+
+			MediaEffects = &../HitOperational/MediaEffects
+		}
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartFire
+					FireChance = .9
+					Delay = 2
+				}
+				{
+					Type = Impulse
+					Impulse = 10
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/laser_bolt_large_hit.txt>
+				&<particles/laser_bolt_large_flash.txt>
+				&<particles/laser_bolt_large_sparks.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .06
+					Duration = .3
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[				
+				{
+					Type = PartFire
+					FireChance = .9
+					Delay = 2
+				}
+				{
+					Type = Impulse
+					Impulse = 5
+				}
+			]
+
+			MediaEffects
+			[
+				&<particles/laser_bolt_large_hit_struct.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "hit.wav"
+					Volume = .3
+					SpeedVariation = .4
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			HitEffects
+			[
+				{
+					Type = PartFire
+					FireChance = .1
+					Delay = 2
+				}
+			]
+		}
+		PenetratingStructural
+		{
+			HitEffects
+			[
+				{
+					Type = PartFire
+					FireChance = .1
+					Delay = 2
+				}
+			]
+		}
+		FinishedPenetratingOperational
+		{			
+			HitEffects
+			[
+				{
+					Type = AreaFires
+					FireChancePerTile = .1
+					FireRadius = 7
+					FireFalloff = 0
+					Delay = 1
+					AllowFriendlyFires = false
+				}
+			]
+			MediaEffects
+			[
+				&<particles/shockwave.txt>
+			]
+		}
+		FinishedPenetratingStructural
+		{
+			HitEffects
+			[
+				{
+					Type = AreaFires
+					FireChancePerTile = .1
+					FireRadius = 7
+					FireFalloff = 0
+					Delay = 1
+					AllowFriendlyFires = false
+				}
+			]
+			MediaEffects
+			[
+				&<particles/shockwave.txt>
+			]
+		}
+	}
+}

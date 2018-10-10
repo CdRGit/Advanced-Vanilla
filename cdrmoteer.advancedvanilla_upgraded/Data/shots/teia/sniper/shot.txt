@@ -1,0 +1,71 @@
+ID = cdrmoteer.teia.sniper
+Range = 280
+Speed = 280
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.4
+		Density = 0.1
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+
+	Sprite
+	{
+		Type = Sprite
+		RenderBucket = Lower
+		Sprite
+		{
+			Texture
+			{
+				File = "pd_shot.png"
+				SampleMode = Linear
+				MipLevels = max
+			}
+			Size = [8, .5]
+		}
+	}
+
+	AntiBullet
+	{
+		Type = AntiBullet
+		PhysicsComponent = Physics
+
+		HitBullet
+		{
+			HitEffects
+							[
+								{
+									Type = BulletDamage
+									Damage = 1000
+								}
+							]
+			
+			MediaEffects
+							[
+								&<./Data/shots/pd_shot/particles/pd_shot_clink.txt>
+							]
+		}
+	}
+
+	Hit
+	{
+		Type = SimpleHit
+		PhysicsComponent = Physics
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects = []
+			MediaEffects = &~/Components/AntiBullet/HitBullet/MediaEffects
+		}
+		HitStructural = &HitOperational
+	}
+}
