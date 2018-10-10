@@ -1,0 +1,322 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/WaterStorage"
+	IconNameKey = "Parts/WaterStorageIcon"
+	IDString = cdrmoteer.water_storage // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
+	EditorGroup = "advanced_vanilla_group_science"
+	DescriptionKey = "Parts/WaterStorageDesc"
+	Cost = 2000
+	AIValue = 5
+	Size = [2, 2]
+	MaxHealth = 4000
+	InitialPenetrationResistance = 1
+	TypeCategories = [water]
+	RequiresCategories = [science_vessel_bridge]
+	IgnoreRotationForMirroredSelection = true
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components
+	{
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = advanced_vanilla_water
+			MaxAmmo = 15000
+			StartingAmmo = 0
+			SuppliesAmmo = true
+			Priorities = &/PRIORITIES/Storage_Supply
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			ResupplyThreshold = 500
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 1]
+			OperationalToggle = BatteryStorage
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"blinkies1.png"
+							"blinkies2.png"
+							"blinkies3.png"
+							"blinkies4.png"
+							"blinkies5.png"
+							"blinkies6.png"
+							"blinkies7.png"
+							"blinkies8.png"
+						]
+						Size = [2, 2]
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [1, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "batteries1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries6.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries7.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries8.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries9.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries10.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries11.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries12.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries13.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries14.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries15.png"
+					Size = [2, 2]
+				}
+			]
+		}
+
+		BatterySpritesLighting
+		{
+			Type = AmmoSprites
+			Location = [1, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "lights1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights2.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights3.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights4.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights5.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights6.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights7.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights8.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights9.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights10.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights11.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights12.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights13.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights14.png"
+					Size = [2, 2]
+				}
+				{
+					File = "lights15.png"
+					Size = [2, 2]
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/MedPartDestroyed
+			Location = [1, 1]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoAdvancedVanillaWater
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 2]
+		}
+	}
+}
