@@ -1,0 +1,313 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/AmmoExplosiveAutoLoader"
+	IconNameKey = "Parts/AmmoExplosiveAutoLoaderIcon"
+	IDString = cdrmoteer.auto_explosive_ammo_loader
+	EditorGroup = "advanced_vanilla_group_weapons"
+	DescriptionKey = "Parts/AmmoExplosiveAutoLoaderDesc"
+	Cost = 4000
+	AIValue = 20
+	Size = [2, 1]
+	SelectionPriority = 1
+	MaxHealth = 4000
+	TypeCategories = [provides_ammo, automated, autoloader]
+	AllowedDoorLocations = []
+	ReceivableBuffs = [AutoReactorSupply]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 32]
+	}
+	Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [BuffToggle, PowerToggle]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		
+		BuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		
+		BuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty
+			BuffAmount = 1
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		
+		RepeatingTrigger
+		{
+			Type = RepeatingTrigger
+			OperationalToggle = IsOperational
+			Interval = { BaseValue = 2; BuffType = AutoReactorSupply; BuffMode = Divide}
+		}
+		
+		AmmoProvider1
+		{
+			Type = TriggeredEffects
+			Location = [0.5, 1.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = PartAreaAmmoDrain
+					AmmoType = explosive_bullet
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Delay = 0.0
+					AllowFriendlyDrain = true
+				}
+			]
+		}
+		
+		AmmoProvider2
+		{
+			Type = TriggeredEffects
+			Location = [1.5, 1.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = PartAreaAmmoDrain
+					AmmoType = explosive_bullet
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Delay = 0.0
+					AllowFriendlyDrain = true
+				}
+			]
+		}
+
+		TriggeredEffects
+		{
+			Type = TriggeredEffects
+			Trigger = RepeatingTrigger
+			Location = [1, 1]
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioInterior
+				{
+					Sound = "bullet_create.wav"
+					Volume = .075
+					SpeedVariation = .1
+				}
+			]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 0.5]
+			ResetAnimationTrigger = RepeatingTrigger
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							// "doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on9.png"
+							"doodads_on10.png"
+							"doodads_on11.png"
+							"doodads_on12.png"
+							"doodads_on13.png"
+							"doodads_on14.png"
+							"doodads_on15.png"
+							"doodads_on16.png"
+							"doodads_on1.png"
+						]
+						Size = [2, 2]
+						Offset = [0, 0.5]
+						AnimationInterval = 0.125
+						AnimationStartTime = MinValue
+						ClampAnimation = true
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Offset = [0, 0.5]
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1, 1]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/MedPartDestroyed
+			Location = [1, 1]
+			
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = 1000
+					RadiusVsOperational = 3
+					DamageVsStructurePerTile = 500
+					RadiusVsStructure = 2
+					Delay = .05
+					AllowFriendlyDamage = true
+				}
+				{
+					Type = AreaFires
+					FireChancePerTile = .1
+					FireRadius = 3
+					FireFalloff = 0
+					Delay = .05
+					AllowFriendlyFires = true
+				}
+			]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 1]
+		}
+	}
+}
