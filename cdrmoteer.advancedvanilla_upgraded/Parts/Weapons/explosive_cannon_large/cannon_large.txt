@@ -1,0 +1,699 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/ExplosiveCannonLarge"
+	IconNameKey = "Parts/ExplosiveCannonLargeIcon"
+	IDString = cdrmoteer.explosive_cannon_large
+	OtherIDs = [explosive_cannon_large]
+	EditorGroup = "advanced_vanilla_group_weapons"
+	DescriptionKey = "Parts/ExplosiveCannonLargeDesc"
+	Cost = 7200
+	AIValue = 30
+	TypeCategories = [weapon, weapon_using_ammo,advanced_parts]
+	RequiresCategories = [advanced_weapons_main]
+	ReceivableBuffs = [Advanced_Vanilla_Weapons, AutoWeaponsEnable]
+	Size = [3, 3]
+	PhysicalRect = [0, 1, 3, 2]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	SelectionTypeByRotation = true
+	SelectionTypeID = "cannons"
+	MaxHealth = 12000
+	InitialPenetrationResistance = 3
+	ProhibitAbove = 2
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[-1, 2]
+		[0, 3]
+		[1, 3]
+		[2, 3]
+		[3, 2]
+		[3, 1]
+	]
+	ExternalWallsByCell
+	[
+		{
+			Key = [0, 1]
+			Value = [TopLeft, Left]
+		}
+		{
+			Key = [1, 1]
+			Value = None
+		}
+		{
+			Key = [2, 1]
+			Value = [TopRight, Right]
+		}
+	]
+	InternalWallsByCell
+	[
+		{
+			Key = [0, 0]
+			Value = [Left, TopLeft, Top, TopRight]
+		}
+		{
+			Key = [1, 0]
+			Value = [TopLeft, Top, TopRight]
+		}
+		{
+			Key = [2, 0]
+			Value = [Right, TopRight, Top, TopLeft]
+		}
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [55.2, 92]
+	}
+	Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, PartCrew]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+
+		FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+		}
+
+		LoadedAmmo
+		{
+			Type = AmmoStorage
+			AmmoType = explosive_bullet
+			MaxAmmo = 4
+			DelayBeforeReadyToUse = .25
+			AnticipateMoreAmmoFrom = ["AmmoStorage"]
+		}
+
+		AmmoStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = explosive_bullet
+			MaxAmmo = 20
+			Priorities = &/PRIORITIES/Weapon_Supply
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			ToggleOnAmmo = 4
+			PrerequisiteUnmetAmmo = 3
+			AdditionalStorageForJobPriority = [LoadedAmmo]
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/AmmoDeliver
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1.5, 1]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				Offset = [0, 0]
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [3, 4]
+					}
+					{
+						File = "floor_33.png"
+						Size = [3, 4]
+					}
+					{
+						File = "floor_66.png"
+						Size = [3, 4]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				Offset = [0, 0]
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [3, 4]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				Offset = [0, 0]
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [3, 4]
+					}
+					{
+						File = "walls_33.png"
+						Size = [3, 4]
+					}
+					{
+						File = "walls_66.png"
+						Size = [3, 4]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				Offset = [0, 0]
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_33.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_66.png"
+						Size = [3, 4]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows_on.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_windows_on_33.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_windows_on_66.png"
+						Size = [3, 4]
+					}
+				]
+			}
+			NonOperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows_off.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_windows_off_33.png"
+						Size = [3, 4]
+					}
+					{
+						File = "roof_windows_off_66.png"
+						Size = [3, 4]
+					}
+				]
+			}
+		}
+
+		Turret
+		{
+			Type = TurretWeapon
+			Location = [1.5, 1] // Relative to upper-left corner of unrotated part.
+			Rotation = -90d // Relative to unrotated part.
+			OperationalToggle = IsOperational
+			FireInterval = { BaseValue=1.2; BuffType=Advanced_Vanilla_Defense; BuffMode=Divide; }
+			FiringArc = 115d
+			RotateSpeed = 30d
+			FireThresholdAngle = 1d
+			TargetSearchTriesPerFrame = 1
+			AIFirepowerRating = 2400
+			FireModeToggle = FireModeToggle
+
+			OldEmitter
+			{
+				Type = Bullet
+				Bullet = &<../../../Data/shots/bullet_large/bullet_large.txt>
+				Spread = [-4d, 4d]
+			}
+
+			BlueprintArcSprite
+			{
+				Texture = &/INDICATORS/WeaponArc
+				Size = [0, 1.5]
+				Color = [255, 0, 0, 63]
+			}
+			BlueprintArcRadius = 10
+			BlueprintArcSpriteSegments = 64
+
+			CoverageSectorArc
+			{
+				Texture = &/INDICATORS/VerticalGradient
+				VertexColor = [255, 255, 255, 51]
+				QuadCount = 64
+			}
+		Emitter = TurretEmitter
+		}
+
+		TurretEmitter: Turret/OldEmitter
+		{
+			Type = BulletEmitter
+			Location
+			[
+				3
+				0
+			]
+			ChainedTo = Turret
+			FireTrigger = Turret
+			GetTargetFrom = Turret
+			OperationalToggle = IsOperational
+			AmmoStorage = LoadedAmmo
+			AmmoUsed = 4
+		}
+
+		FireEffect
+		{
+			Type = TriggeredEffects
+			ChainedTo = Turret
+			Trigger = TurretEmitter
+			Location = [3, 0]
+
+			MediaEffects
+			[
+				&<particles/cannon_shoot_large.txt>
+				&<particles/cannon_smoke_large.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "shoot.wav"
+					SpeedVariation = .25
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .075
+					Duration = .5
+				}
+			]
+		}
+
+		AmmoLoader
+		{
+			Type = AmmoConverter
+			FromStorage = AmmoStorage
+			ToStorage = LoadedAmmo
+			FromQuantity = 1
+			ToQuantity = 1
+			Interval = .15
+			DelayTrigger = TurretEmitter
+			DelayAfterTrigger = .5
+		}
+
+		LoadEffects
+		{
+			Type = TriggeredEffects
+			Trigger = AmmoLoader
+			MediaEffects = &/COMMON_EFFECTS/AmmoLoad
+		}
+
+		CrewLocation1
+		{
+			Type = CrewLocation
+			ChainedTo = Turret
+			Location = [-.35, -.7]
+			Rotation = 270d
+		}
+		CrewLocation2
+		{
+			Type = CrewLocation
+			ChainedTo = Turret
+			Location = [-.35, .8]
+			Rotation = 225d
+		}
+		RealPartCrew
+		{
+			Type = PartCrew
+			Crew = 2
+			Priorities = &/PRIORITIES/Weapon_Crew
+			PrerequisitesBeforeCrewing = [AmmoStorage, PowerToggle]
+			CrewDestinations
+			[
+				[.8, 1.35]
+				[2.3, 1.35]
+			]
+			CrewLocations
+			[
+				CrewLocation1
+				CrewLocation2
+			]
+		}
+		
+		PartCrew // PartCrew is replaced with a multi-toggle, which will trigger if either the buff is received, *or* if there is crew present.
+		{
+			Type = MultiToggle
+			Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+			Mode = Any
+		}
+		
+		WeaponControllerBuffToggle // The buff toggle is triggered by the weapon controller
+		{
+			Type = BuffToggle
+			BuffType = AutoWeaponsEnable
+		}
+
+		TurretCollider
+		{
+			Type = CircleCollider
+			ChainedTo = Turret
+			Radius = 1.155
+			Density = 1.5
+		}
+
+		TurretGraphics
+		{
+			Type = Graphics
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "turrets"
+				DamageLevels
+				[
+					{
+						File = "turret_floor.png"
+						Size = [3, 3]
+					}
+					{
+						File = "turret_floor_33.png"
+						Size = [3, 3]
+					}
+					{
+						File = "turret_floor_66.png"
+						Size = [3, 3]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"console_on1.png"
+							"console_on2.png"
+							"console_on3.png"
+							"console_on4.png"
+							"console_on5.png"
+							"console_on6.png"
+							"console_on7.png"
+							"console_on8.png"
+						]
+						Size = [3, 1]
+						AnimationInterval = 0.125
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "console_off.png"
+						Size = [3, 1]
+					}
+				]
+			}
+		}
+
+		BarrelSprite
+		{
+			Type = Sprite
+			ChainedTo = Turret
+			Location = [.5, 0]
+			Rotation = 90d
+			Layer = "weapons"
+			ResetAnimationTrigger = TurretEmitter
+			AtlasSprite
+			{
+				AnimationFiles
+				[
+					//"barrel1.png"
+					"barrel2.png"
+					"barrel3.png"
+					"barrel4.png"
+					"barrel5.png"
+					"barrel6.png"
+					"barrel7.png"
+					"barrel8.png"
+					"barrel1.png"// Loop back to beginning and clamp there.
+				]
+				Size = [3, 5]
+				AnimationInterval = 0.0625
+				AnimationStartTime = MinValue
+				ClampAnimation = true
+			}
+		}
+
+		LoadedAmmoSprites
+		{
+			Type = AmmoSprites
+			ChainedTo = Turret
+			Location = [0, 0]
+			Rotation = 90d
+			AmmoStorage = LoadedAmmo
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "bullets1.png"
+					Size = [1, 1]
+				}
+				{
+					File = "bullets2.png"
+					Size = [1, 1]
+				}
+				{
+					File = "bullets3.png"
+					Size = [1, 1]
+				}
+				{
+					File = "bullets4.png"
+					Size = [1, 1]
+				}
+			]
+		}
+
+		AmmoSprites
+		{
+			Type = AmmoSprites
+			Location = [1.5, 2]
+			AmmoStorage = AmmoStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "bullets5.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets6.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets7.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets8.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets9.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets10.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets11.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets12.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets13.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets14.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets15.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets16.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets17.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets18.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets19.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets20.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets21.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets22.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets23.png"
+					Size = [3, 2]
+				}
+				{
+					File = "bullets24.png"
+					Size = [3, 2]
+				}
+			]
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1.5, 1.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1.5, 1.5]
+
+			FactorHitEffectsWith = AmmoStorage
+			HitEffects
+			[
+				{
+					Type = PartAreaDamage
+					DamageVsOperationalPerTile = 2000
+					RadiusVsOperational = 4.5
+					DamageVsStructurePerTile = 1000
+					RadiusVsStructure = 3.5
+					Delay = .05
+					AllowFriendlyDamage = true
+				}
+				{
+					Type = AreaFires
+					FireChancePerTile = .2
+					FireRadius = 4.5
+					FireFalloff = 0
+					Delay = .05
+					AllowFriendlyFires = true
+				}
+			]
+		}
+
+		AmmoIndicatorToggle
+		{
+			Type = MultiToggle
+			Toggles = [LoadedAmmo, AmmoStorage]
+			Mode = Any
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1.5, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of ammo.
+				{
+					Toggle = AmmoIndicatorToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoAmmo
+						Size = [1.5, 1.5]
+					}
+				}
+
+				// No crew.
+				{
+					Toggle = PartCrew
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoCrew
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [3, 5]
+			Offset = [0, -1]
+		}
+
+		CrewUIStats
+		{
+			Type = UIStats
+			Stat = Crew
+			Min = 2
+			Ideal = 8
+		}
+	}
+}
