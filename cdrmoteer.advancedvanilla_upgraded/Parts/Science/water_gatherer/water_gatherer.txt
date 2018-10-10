@@ -1,0 +1,323 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/WaterGatherer"
+	IconNameKey = "Parts/WaterGathererIcon"
+	IDString = cdrmoteer.water_gatherer // Part IDs must always be in the form of "author_name.part_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla parts.
+	EditorGroup = "advanced_vanilla_group_science"
+	DescriptionKey = "Parts/WaterGathererDesc"
+	Cost = 1000
+	AIValue = 1
+	TypeCategories = [water]
+	Size = [1, 2]
+	PhysicalRect = [0, 1, 1, 1]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	SelectionTypeByRotation = true
+	MaxHealth = 2000
+	InitialPenetrationResistance = 2
+	ProhibitAbove = 6
+	RequiresCategories = [science_vessel_bridge]
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[1, 1]
+		[0, 2]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [21.33, 42.66]
+	}
+	Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+
+		BatteryStorage
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			MaxAmmo = 1000
+			Priorities = &/PRIORITIES/Defense_Supply
+			JobUnassignThreshold = 1000000// Effectively unassignable.
+			AmmoDesireToggle = PowerToggle
+
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		WaterStorage
+		{
+			Type = AmmoStorage
+			AmmoType = advanced_vanilla_water
+			MaxAmmo = 1000
+			SuppliesAmmo = true
+			AssumeAlwaysHasAmmoWhenToggle = IsOperational
+			WaitPerDistToNextClosest = .5
+		}
+		
+		AmmoConverter
+		{
+			Type = AmmoConverter
+			OperationalToggle = IsOperational
+			FromStorage = BatteryStorage
+			ToStorage = WaterStorage
+			FromQuantity = 100
+			ToQuantity = 1000
+			Interval = 1
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, 1.5]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_on.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_on_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_on_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_off_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "doodads_off_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_window.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [.5, 1.5]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_low"
+			HasZeroAmmoSprite = true
+			AmmoLevels
+			[
+				{
+					File = "battery0.png"
+					Size = [1, 1]
+				}
+				{
+					File = "battery1.png"
+					Size = [1, 1]
+				}
+			]
+		}
+
+		
+		WaterSprites
+		{
+			Type = AmmoSprites
+			Location = [.5, 1.8]
+			AmmoStorage = WaterStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "water1.png"
+					Size = [1, 1]
+				}
+			]
+		}
+		
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [.5, 1.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyed
+			Location = [.5, 1.5]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [.5, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 2]
+		}
+
+		PowerUIStats
+		{
+			Type = UIStats
+			Stat = Power
+			Min = .12
+			Ideal = .12
+		}
+		CrewUIStats
+		{
+			Type = UIStats
+			Stat = Crew
+			Min = 0
+			Ideal = 1
+		}
+	}
+}
