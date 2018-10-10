@@ -1,0 +1,145 @@
+NameKey = "Parts/SafetyDoor"
+IconNameKey = "Parts/SafetyDoorIcon"
+IDString = cdrmoteer.safety_door // Door IDs must always be in the form of "author_name.door_name". If making your own mod, do *not* use "cosmoteer" as your author name, because it may conflict with future vanilla doors.
+Cost = 250
+FractionalSaleRefund = 75%
+Layer = "doors"
+StencilLayer = "walls_stencil"
+DescriptionKey = "Parts/SafetyDoorDesc"
+EditorGroup = "advanced_vanilla_group_misc"
+EditorIcon
+{
+	Texture
+	{
+		File = "icon.png"
+		SampleMode = Linear
+	}
+	Size = [32, 32]
+}
+
+HorizontalOpenSprite
+{
+	AnimationFiles
+	[
+		"opendoor1.png"
+		"opendoor2.png"
+		"opendoor3.png"
+		"opendoor4.png"
+		"opendoor5.png"
+		"opendoor6.png"
+		"opendoor7.png"
+		"opendoor8.png"
+		"opendoor9.png"
+		"opendoor10.png"
+		"opendoor11.png"
+		"opendoor12.png"
+	]
+	Size = [1, 1]
+	UVRotation = 1
+	AnimationInterval = 0.01125
+	AnimationStartTime = MinValue
+	ClampAnimation = true
+}
+
+VerticalOpenSprite
+{
+	AnimationFiles
+	[
+		"opendoor1.png"
+		"opendoor2.png"
+		"opendoor3.png"
+		"opendoor4.png"
+		"opendoor5.png"
+		"opendoor6.png"
+		"opendoor7.png"
+		"opendoor8.png"
+		"opendoor9.png"
+		"opendoor10.png"
+		"opendoor11.png"
+		"opendoor12.png"
+	]
+	Size = [1, 1]
+	UVRotation = 0
+	AnimationInterval = 0.01125
+	AnimationStartTime = MinValue
+	ClampAnimation = true
+}
+
+HorizontalClosedSprite
+{
+	AnimationFiles
+	[
+		"closedoor12.png"
+		"closedoor11.png"
+		"closedoor10.png"
+		"closedoor9.png"
+		"closedoor8.png"
+		"closedoor7.png"
+		"closedoor6.png"
+		"closedoor5.png"
+		"closedoor4.png"
+		"closedoor3.png"
+		"closedoor2.png"
+		"closedoor1.png"
+	]
+	Size = [1, 1]
+	UVRotation = 1
+	AnimationInterval = 0.01875
+	AnimationStartTime = MinValue
+	ClampAnimation = true
+}
+
+VerticalClosedSprite
+{
+	AnimationFiles
+	[
+		"closedoor12.png"
+		"closedoor11.png"
+		"closedoor10.png"
+		"closedoor9.png"
+		"closedoor8.png"
+		"closedoor7.png"
+		"closedoor6.png"
+		"closedoor5.png"
+		"closedoor4.png"
+		"closedoor3.png"
+		"closedoor2.png"
+		"closedoor1.png"
+	]
+	Size = [1, 1]
+	UVRotation = 0
+	AnimationInterval = 0.01875
+	AnimationStartTime = MinValue
+	ClampAnimation = true
+}
+
+HorizontalStencilSprite
+{
+	File = "stencil.png"
+	Size = [1, 1]
+	UVRotation = 1
+}
+
+VerticalStencilSprite
+{
+	File = "stencil.png"
+	Size = [1, 1]
+	UVRotation = 0
+}
+
+HorizontalBlueprintSprite
+{
+	File = "blueprints.png"
+	Size = [1, 1]
+	UVRotation = 1
+}
+
+VerticalBlueprintSprite
+{
+	File = "blueprints.png"
+	Size = [1, 1]
+	UVRotation = 0
+}
+
+HorizontalDoorSize = [0.71875, 0.21875]
+VerticalDoorSize = [0.21875, 0.71875]
